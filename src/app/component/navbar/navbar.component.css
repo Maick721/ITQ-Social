@@ -1,0 +1,43 @@
+.navbar {
+background: linear-gradient(to right, #000, #000); /* fondo negro */
+padding: 0.5rem 2rem;
+}
+
+.navbar img {
+width: 150px;
+height: auto;
+vertical-align: middle;
+}
+
+.container-fluid {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+}
+
+.form-control {
+border-radius: 25px;
+min-width: 250px;
+padding: 0.4rem 1rem;
+border: none;
+}
+
+.form-control:focus {
+box-shadow: 0 0 8px #cf1e1e;
+outline: none;
+}
+
+.btn-outline-success {
+border-radius: 25px;
+min-width: 170px;
+text-align: center;
+color: #fff;
+transition: all 0.3s;
+background-color: rgb(171, 122, 69);
+border: 2px solid #fff;
+}
+
+.btn-outline-success:hover {
+background-color: #ff2a00;
+}
