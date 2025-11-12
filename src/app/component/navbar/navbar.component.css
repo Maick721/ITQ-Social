@@ -1,43 +1,48 @@
-.navbar {
-background: linear-gradient(to right, #000, #000); /* fondo negro */
-padding: 0.5rem 2rem;
-}
-
-.navbar img {
-width: 150px;
-height: auto;
-vertical-align: middle;
-}
-
+/* Estilos generales */
 .container-fluid {
-display: flex;
-justify-content: center;
-align-items: center;
-width: 100%;
+  height: 100vh;
+  padding-left: 200px; /* Espacio para el navbar */
 }
 
-.form-control {
-border-radius: 25px;
-min-width: 250px;
-padding: 0.4rem 1rem;
-border: none;
+/* Barra lateral */
+.bg-dark {
+  background-color: #000000 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  z-index: 1000;
 }
 
-.form-control:focus {
-box-shadow: 0 0 8px #cf1e1e;
-outline: none;
+.nav-link {
+  padding: 0.5rem 1rem;
 }
 
-.btn-outline-success {
-border-radius: 25px;
-min-width: 170px;
-text-align: center;
-color: #fff;
-transition: all 0.3s;
-background-color: rgb(171, 122, 69);
-border: 2px solid #fff;
+.nav-link:hover {
+  background-color: #8d2121;
 }
 
-.btn-outline-success:hover {
-background-color: #ff2a00;
+.nav-link.active {
+  background-color: #555;
 }
+
+.bi {
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.badge {
+  font-size: 0.8rem;
+}
+
+/* Logotipo */
+.mw-100 {
+  max-width: 100%;
+}
+
+.mh-100 {
+  max-height: 100%;
+}
+
+
