@@ -1,36 +1,26 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.component.html'
+    selector: 'app-login',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  readonly authService = inject(AuthService);
+    
+    constructor(private router: Router) {}
 
-  // Signals
-  readonly email = signal<string>('');
-  readonly password = signal<string>('');
-  readonly showMicrosoftModal = signal<boolean>(false);
+    onLogin(): void {
+        this.router.navigate(['/home']);
+    }
 
-  onEmailLogin(): void {
-    this.authService.loginWithEmail(this.email(), this.password());
-  }
+    onRegister(): void {
+        this.router.navigate(['/registro']);
+    }
 
-  openMicrosoftModal(): void {
-    this.showMicrosoftModal.set(true);
-  }
-
-  closeMicrosoftModal(): void {
-    this.showMicrosoftModal.set(false);
-  }
-
-  startMicrosoftLogin(): void {
-    this.closeMicrosoftModal();
-    this.authService.loginWithMicrosoft();
-  }
+    onForgotPassword(): void {
+        this.router.navigate(['/forgot-password']);
+    }
 }

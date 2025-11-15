@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { AuthService } from '../../services/auth.service';
 import { signal } from '@angular/core';
 
 // Mock del AuthService
@@ -21,7 +20,6 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
       providers: [
-        { provide: AuthService, useValue: mockAuthService }
       ]
     }).compileComponents();
 
