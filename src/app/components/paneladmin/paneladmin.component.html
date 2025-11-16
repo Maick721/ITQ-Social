@@ -1,0 +1,94 @@
+<app-navbar></app-navbar>
+
+<h1>Panel de Administración</h1>
+
+<!-- SECCIÓN DE ESTADÍSTICAS -->
+<div>
+  <h2>Estadísticas</h2>
+
+  <!-- *ngFor para recorrer las tarjetas de estadística -->
+  <div *ngFor="let item of stats">
+    <h3>{{ item.titulo }}</h3>
+    <p>{{ item.valor }}</p>
+    <hr>
+  </div>
+</div>
+
+
+
+<!-- ============================
+     ADMINISTRAR PUBLICACIONES
+     ============================ -->
+<h2>Administrar Publicaciones</h2>
+
+<!-- Solo se muestra la tabla si hay publicaciones (uso de *ngIf) -->
+<div *ngIf="publicaciones && publicaciones.length > 0; else sinPublicaciones">
+
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Contenido</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- *ngFor para recorrer publicaciones -->
+      <tr *ngFor="let pub of publicaciones">
+        <td>{{ pub.usuario }}</td>
+        <td>{{ pub.contenido }}</td>
+        <td>{{ pub.fecha }}</td>
+
+        <td>
+          <!-- Son simples botones, no hacen nada -->
+          <button (click)="editar(pub)">Editar</button>
+          <button (click)="eliminar(pub)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Plantilla alternativa si NO hay publicaciones -->
+<ng-template #sinPublicaciones>
+  <p>No hay publicaciones disponibles.</p>
+</ng-template>
+
+
+
+<!-- ============================
+     GESTIONAR USUARIOS
+     ============================ -->
+<h2>Gestionar Usuarios</h2>
+
+<!-- *ngIf para verificar si hay usuarios -->
+<div *ngIf="(usuarios?.length || 0) > 0; else noUsuarios">
+
+
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- *ngFor para recorrer usuarios -->
+      <tr *ngFor="let u of usuarios">
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.rol }}</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<!-- Mensaje si no hay usuarios -->
+<ng-template #noUsuarios>
+  <p>No hay usuarios registrados.</p>
+</ng-template>
