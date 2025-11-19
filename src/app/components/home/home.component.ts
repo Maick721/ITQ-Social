@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar.component";
-import { MuroComponent } from '../muro/muro.component'; 
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { MuroComponent } from '../../usuario/muro/muro.component';
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent, MuroComponent ],
+  imports: [NavbarComponent, MuroComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css'    
 })
 export class HomeComponent {
 
