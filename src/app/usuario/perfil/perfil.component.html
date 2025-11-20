@@ -1,0 +1,132 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-3 perfil-container">
+
+  <div class="row">
+    <div class="col-11.5">
+
+      <!-- CARD PERFIL -->
+      <div class="card perfil-card shadow-sm p-4">
+
+        <!-- FOTO + NOMBRE -->
+        <div class="text-center">
+          <img src="images/yo.png" alt="Foto de perfil" class="perfil-foto mb-3" />
+          <h3 class="mb-0">{{ usuario.nombre }}</h3>
+          <p class="text-muted mb-1">{{ '@' + usuario.usuario }}</p>
+          <p class="text-muted small">{{ usuario.carrera }} · {{ usuario.ubicacion }}</p>
+        </div>
+
+        <hr>
+
+        <!-- BIO -->
+        <p class="mb-4">{{ usuario.bio }}</p>
+
+        <!-- ESTADÍSTICAS -->
+        <div class="d-flex justify-content-around text-center mb-4">
+          <div>
+            <span class="d-block fw-bold fs-5">{{ usuario.amigos }}</span>
+            <span class="text-muted small">Amigos</span>
+          </div>
+          <div>
+            <span class="d-block fw-bold fs-5">{{ usuario.publicaciones }}</span>
+            <span class="text-muted small">Publicaciones</span>
+          </div>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="d-flex gap-3 mb-4">
+          <button class="btn btn-primary w-50">
+            <i class="fa-solid fa-user-pen me-2"></i> Editar perfil
+          </button>
+
+          <button class="btn btn-outline-secondary w-50">
+            <i class="fa-solid fa-gear me-2"></i> Configuración
+          </button>
+        </div>
+
+        <hr>
+
+        <!-- GALERÍA -->
+        <h5 class="mb-3">Fotos</h5>
+        <div class="row g-3">
+          <div class="col-4" *ngFor="let foto of fotos">
+            <img
+              [src]="foto.url"
+              class="img-fluid rounded foto-galeria"
+              (click)="abrirDetalle(foto)"
+              style="cursor: pointer;"
+            >
+          </div>
+        </div>
+
+      </div>
+      <!-- FIN CARD PERFIL -->
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DETALLE -->
+<div class="detalle-backdrop" *ngIf="fotoSeleccionada()">
+  <div class="detalle-panel">
+
+    <!-- HEADER DEL MODAL -->
+    <div class="detalle-header">
+      <h6 class="mb-0">
+        <i class="fa-solid fa-image me-2"></i> Detalle de publicación
+      </h6>
+      <button class="btn-close" (click)="cerrarDetalle()">✕</button>
+    </div>
+
+    <!-- CUERPO DEL MODAL -->
+    <div class="detalle-content">
+
+      <!-- IMAGEN -->
+      <img 
+        [src]="fotoSeleccionada()?.url" 
+        class="detalle-img"
+        alt="Publicación"
+      >
+
+      <!-- TEXTO -->
+      <div class="detalle-info">
+
+        <small class="text-muted d-block mb-1">
+          <i class="fa-regular fa-calendar me-1"></i>
+          {{ fotoSeleccionada()?.fecha }}
+        </small>
+
+        <p>{{ fotoSeleccionada()?.descripcion }}</p>
+
+        <!-- CHIPS -->
+        <div class="chips">
+          <span class="chip like">
+            <i class="fa-solid fa-heart me-1"></i>
+            {{ fotoSeleccionada()?.likes }}
+          </span>
+
+          <span class="chip comment">
+            <i class="fa-solid fa-comment me-1"></i>
+            {{ fotoSeleccionada()?.comentarios?.length }}
+          </span>
+
+          <span class="chip share">
+            <i class="fa-solid fa-share me-1"></i>
+            {{ fotoSeleccionada()?.compartidos }}
+          </span>
+        </div>
+
+        <!-- COMENTARIOS -->
+        <div class="comentarios-box">
+          <p class="fw-bold small mb-2">Comentarios</p>
+
+          <p *ngFor="let c of fotoSeleccionada()?.comentarios" class="bubble">
+            <i class="fa-regular fa-comment-dots me-2 text-primary"></i>
+            {{ c }}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+/* Separar todo del navbar lateral */
+.contenido-mensajes,
+.contenido-chat {
+  margin-left: 120px; 
+}
+
+/* LISTA DE MENSAJES con ancho cómodo */
+.mensajes-wrapper {
+  max-width: 900px;   
+  margin: 0 auto;
+}
+
+/* FOTO DEL CHAT */
+.chat-foto {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-item:hover {
+  background: #f4f4f4;
+}
+
+/* CHAT ABIERTO con ancho intermedio */
+.chat-wrapper {
+  max-width: 1200px;   /* ← ANCHO PERFECTO (ni gigante ni angosto) */
+  margin: 0 auto;     /* centrado */
+}
+
+/* Burbujas de mensajes */
+.msg-yo {
+  background: #d1e7ff;
+  padding: 8px 20px;
+  max-width: 50%;      /* ← un poquito más ancho */
+  margin-left: auto;
+  margin-bottom: 6px;
+  border-radius: 12px;
+}
+
+.msg-otra {
+  background: #f1f1f1;
+  padding: 8px 12px;
+  max-width: 8000%;      /* ← más ancho también */
+  margin-bottom: 6px;
+  border-radius: 12px;
+}

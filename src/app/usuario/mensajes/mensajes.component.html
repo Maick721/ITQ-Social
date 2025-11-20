@@ -1,1 +1,110 @@
-<p>mensajes works!</p>
+<app-navbar></app-navbar>
+<br>
+<!-- LISTA DE MENSAJES -->
+<div class="container-fluid contenido-mensajes" *ngIf="!chatSeleccionado">
+
+  <div class="mensajes-wrapper">
+    <h3 class="mb-2">
+      <i class="fa-solid fa-envelope me-2"></i> Mensajes ITQ
+    </h3>
+
+    <div class="card p-3">
+      <div class="list-group">
+
+        <div
+          class="list-group-item d-flex align-items-center chat-item"
+          *ngFor="let chat of chats"
+          (click)="abrirChat(chat)"
+          style="cursor: pointer;"
+        >
+          <img [src]="chat.foto" class="chat-foto me-3" />
+
+          <div class="flex-grow-1">
+            <strong>{{ chat.nombre }}</strong>
+            <p class="m-0 text-muted small">{{ chat.ultimoMensaje }}</p>
+          </div>
+
+          <i class="fa-solid fa-chevron-right text-muted"></i>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- CHAT ABIERTO -->
+<div class="container-fluid contenido-chat" *ngIf="chatSeleccionado">
+
+  <div class="chat-wrapper">
+    <div class="card p-3">
+
+      <!-- HEADER -->
+      <div class="d-flex align-items-center mb-3">
+        <button class="btn btn-light me-3" (click)="cerrarChat()">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <img [src]="chatSeleccionado.foto" class="chat-foto me-3" />
+        <h5 class="m-0">{{ chatSeleccionado.nombre }}</h5>
+      </div>
+
+      <hr>
+
+      <!-- MENSAJES -->
+      <div class="mb-3">
+        <div *ngFor="let msg of chatSeleccionado.mensajes">
+          <p *ngIf="msg.de === 'Yo'" class="msg-yo">
+            {{ msg.texto }}
+          </p>
+          <p *ngIf="msg.de !== 'Yo'" class="msg-otra">
+            {{ msg.texto }}
+          </p>
+        </div>
+      </div>
+
+      <!-- INPUT TEXTO + IMAGEN -->
+      <div class="mt-2">
+
+        <!-- Texto -->
+        <form (ngSubmit)="enviarMensaje()" class="d-flex gap-2">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Escribe un mensaje..."
+            [(ngModel)]="mensajeTexto"
+            name="mensaje"
+          >
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+
+        <!-- Imagen -->
+        <div class="d-flex align-items-center gap-2 mt-2">
+          <label class="btn btn-outline-secondary mb-0">
+            <i class="fa-regular fa-image me-1"></i> Imagen
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              (change)="onImagenSeleccionada($event)"
+            >
+          </label>
+
+          <span class="text-muted small" *ngIf="imagenNombre">
+            Seleccionada: {{ imagenNombre }}
+          </span>
+        </div>
+
+        <p class="text-danger small mt-1" *ngIf="imagenError">
+          {{ imagenError }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </div> 
+</div>

@@ -1,18 +1,20 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './shared/navbar/navbar.component'; // ← "shared" no "shareId"
+import { NavbarComponent } from './shared/navbar/navbar.component'; 
 import { PaneladminComponent } from './administrador/paneladmin/paneladmin.component';
 import { LoginComponent } from './auth/login/login.component';
-import { MuroComponent } from './usuario/muro/muro.component'; // ← "muro" no "maro"
-import { RegistroComponent } from './auth/registro/registro.component'; // ← "registro" no "registero"
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component'; // ← "forgot-password" no "forger_password"
-import { InicioComponent } from './usuario/inicio/inicio.component'; // ← "Inicio" no "Indic"
-import { NotificacionesComponent } from './usuario/notificaciones/notificaciones.component'; // ← "Notificaciones" no "Notifications"
-import { MensajesComponent } from './usuario/mensajes/mensajes.component'; // ← "Mensajes" no "Menegis"
+import { MuroComponent } from './usuario/muro/muro.component'; 
+import { RegistroComponent } from './auth/registro/registro.component'; 
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component'; 
+import { InicioComponent } from './usuario/inicio/inicio.component'; 
+import { NotificacionesComponent } from './usuario/notificaciones/notificaciones.component'; 
+import { MensajesComponent } from './usuario/mensajes/mensajes.component';
 import { AmigosComponent } from './usuario/amigos/amigos.component';
-import { GestionUsuariosComponent } from './administrador/gestion-usuarios/gestion-usuarios.component'; // ← "GestionUsuarios" no "GastroUsuario"
-import { EstadisticasComponent } from './administrador/estadisticas/estadisticas.component'; // ← "Estadisticas" no "Estadistics"
+import { GestionUsuariosComponent } from './administrador/gestion-usuarios/gestion-usuarios.component'; 
+import { EstadisticasComponent } from './administrador/estadisticas/estadisticas.component'; 
 import { NotificacionesAdminComponent } from './administrador/notificaciones/notificaciones.component';
+import { PerfilComponent } from './usuario/perfil/perfil.component';
+
 
 export const routes: Routes = [
   // ===== RUTAS DE AUTENTICACIÓN =====
@@ -26,6 +28,7 @@ export const routes: Routes = [
   { path: 'usuario/notificaciones', component: NotificacionesComponent },
   { path: 'usuario/mensajes', component: MensajesComponent },
   { path: 'usuario/amigos', component: AmigosComponent },
+  { path: 'usuario/perfil', component: PerfilComponent }, 
   
   // ===== RUTAS DE ADMINISTRADOR =====
   { path: 'paneladmin', component: PaneladminComponent },
