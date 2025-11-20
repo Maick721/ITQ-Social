@@ -7,7 +7,6 @@ import { MuroComponent } from './usuario/muro/muro.component';
 import { RegistroComponent } from './auth/registro/registro.component'; 
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component'; 
 import { InicioComponent } from './usuario/inicio/inicio.component'; 
-import { NotificacionesComponent } from './usuario/notificaciones/notificaciones.component'; 
 import { MensajesComponent } from './usuario/mensajes/mensajes.component';
 import { AmigosComponent } from './usuario/amigos/amigos.component';
 import { GestionUsuariosComponent } from './administrador/gestion-usuarios/gestion-usuarios.component'; 
@@ -25,7 +24,6 @@ export const routes: Routes = [
   // ===== RUTAS DE USUARIO =====
   { path: 'muro', component: MuroComponent },
   { path: 'usuario/inicio', component: InicioComponent },
-  { path: 'usuario/notificaciones', component: NotificacionesComponent },
   { path: 'usuario/mensajes', component: MensajesComponent },
   { path: 'usuario/amigos', component: AmigosComponent },
   { path: 'usuario/perfil', component: PerfilComponent }, 
