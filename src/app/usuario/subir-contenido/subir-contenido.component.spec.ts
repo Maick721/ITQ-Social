@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InicioComponent } from './inicio.component';
+import { SubirContenidoComponent } from './subir-contenido.component';
 
-describe('InicioComponent', () => {
-  let component: InicioComponent;
-  let fixture: ComponentFixture<InicioComponent>;
+describe('SubirContenidoComponent', () => {
+  let component: SubirContenidoComponent;
+  let fixture: ComponentFixture<SubirContenidoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InicioComponent]
+      imports: [SubirContenidoComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InicioComponent);
+    fixture = TestBed.createComponent(SubirContenidoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

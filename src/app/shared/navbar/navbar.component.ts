@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NotificacionesPanelService } from '../../services/notificaciones-panel.service';
 import { CommonModule } from '@angular/common';
+import { NotificacionesPanelService } from '../../services/notificaciones-panel.service';
+import { SubirContenidoService } from '../../services/subir-contenido.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,16 +12,24 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  
+
   navbarColapsado: boolean = false;
 
-  constructor(private notificacionesPanelService: NotificacionesPanelService) {}
-
-  abrirNotificaciones(): void {
-    this.notificacionesPanelService.toggle();
-  }
+  constructor(
+    private notificacionesPanelService: NotificacionesPanelService,
+    private subirContenidoService: SubirContenidoService
+  ) {}
 
   toggleNavbar(): void {
     this.navbarColapsado = !this.navbarColapsado;
+  }
+
+  abrirNotificaciones() {
+    this.notificacionesPanelService.abrir();
+  }
+
+  // 👉 Este es el que llama el (click) del navbar
+  abrirModalSubirContenido() {
+    this.subirContenidoService.abrirModal();
   }
 }

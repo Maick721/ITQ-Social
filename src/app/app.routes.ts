@@ -6,13 +6,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { MuroComponent } from './usuario/muro/muro.component'; 
 import { RegistroComponent } from './auth/registro/registro.component'; 
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component'; 
-import { InicioComponent } from './usuario/inicio/inicio.component'; 
 import { MensajesComponent } from './usuario/mensajes/mensajes.component';
 import { AmigosComponent } from './usuario/amigos/amigos.component';
 import { GestionUsuariosComponent } from './administrador/gestion-usuarios/gestion-usuarios.component'; 
 import { EstadisticasComponent } from './administrador/estadisticas/estadisticas.component'; 
 import { NotificacionesAdminComponent } from './administrador/notificaciones/notificaciones.component';
 import { PerfilComponent } from './usuario/perfil/perfil.component';
+import { SubirContenidoComponent } from './usuario/subir-contenido/subir-contenido.component';
+
 
 
 export const routes: Routes = [
@@ -23,10 +24,10 @@ export const routes: Routes = [
   
   // ===== RUTAS DE USUARIO =====
   { path: 'muro', component: MuroComponent },
-  { path: 'usuario/inicio', component: InicioComponent },
   { path: 'usuario/mensajes', component: MensajesComponent },
   { path: 'usuario/amigos', component: AmigosComponent },
-  { path: 'usuario/perfil', component: PerfilComponent }, 
+  { path: 'usuario/perfil', component: PerfilComponent },
+  { path: 'subir-contenido', component: SubirContenidoComponent },
   
   // ===== RUTAS DE ADMINISTRADOR =====
   { path: 'paneladmin', component: PaneladminComponent },

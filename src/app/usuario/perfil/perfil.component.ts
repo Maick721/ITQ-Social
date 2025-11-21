@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { SubirContenidoComponent } from '../../usuario/subir-contenido/subir-contenido.component';
+
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent,SubirContenidoComponent],
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.css']
 })

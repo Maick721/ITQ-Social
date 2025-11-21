@@ -1,18 +1,38 @@
 <div class="container-fluid h-100 d-flex">
-  <div class="bg-dark text-light p-3 d-flex flex-column justify-content-between navbar-lateral" [class.colapsado]="navbarColapsado">
+  <div
+    class="bg-dark text-light p-3 d-flex flex-column justify-content-between navbar-lateral"
+    [class.colapsado]="navbarColapsado"
+  >
     <!-- Botón de toggle -->
-    <button class="btn-toggle" (click)="toggleNavbar()" [title]="navbarColapsado ? 'Expandir menú' : 'Contraer menú'">
-      <i class="bi" [class.bi-chevron-right]="navbarColapsado" [class.bi-chevron-left]="!navbarColapsado"></i>
+    <button
+      class="btn-toggle"
+      (click)="toggleNavbar()"
+      [title]="navbarColapsado ? 'Expandir menú' : 'Contraer menú'"
+    >
+      <i
+        class="bi"
+        [class.bi-chevron-right]="navbarColapsado"
+        [class.bi-chevron-left]="!navbarColapsado"
+      ></i>
     </button>
 
     <div>
-      <img src="images/itqsocial.png" alt="logo" class="mb-3 mw-100 mh-100" *ngIf="!navbarColapsado">
+      <img
+        src="images/itqsocial.png"
+        alt="logo"
+        class="mb-3 mw-100 mh-100"
+        *ngIf="!navbarColapsado"
+      >
 
       <ul class="nav flex-column">
 
         <!-- INICIO -->
         <li class="nav-item">
-          <a class="nav-link text-light" routerLink="/usuario/inicio" [title]="navbarColapsado ? 'Inicio' : ''">
+          <a
+            class="nav-link text-light"
+            routerLink="/home"
+            [title]="navbarColapsado ? 'Inicio' : ''"
+          >
             <i class="bi bi-house-fill" [class.me-2]="!navbarColapsado"></i>
             <span *ngIf="!navbarColapsado">Inicio</span>
           </a>
@@ -22,10 +42,13 @@
 
         <!-- MENSAJES -->
         <li class="nav-item">
-          <a class="nav-link text-light" routerLink="/usuario/mensajes" [title]="navbarColapsado ? 'Mensajes' : ''">
+          <a
+            class="nav-link text-light"
+            routerLink="/usuario/mensajes"
+            [title]="navbarColapsado ? 'Mensajes' : ''"
+          >
             <i class="bi bi-chat-dots" [class.me-2]="!navbarColapsado"></i>
             <span *ngIf="!navbarColapsado">Mensajes</span>
-            <span class="badge bg-danger rounded-pill ms-2" *ngIf="!navbarColapsado">4</span>
           </a>
         </li>
 
@@ -33,7 +56,12 @@
 
         <!-- NOTIFICACIONES -->
         <li class="nav-item">
-          <a class="nav-link text-light" (click)="abrirNotificaciones()" style="cursor: pointer;" [title]="navbarColapsado ? 'Notificaciones' : ''">
+          <a
+            class="nav-link text-light"
+            (click)="abrirNotificaciones()"
+            style="cursor: pointer;"
+            [title]="navbarColapsado ? 'Notificaciones' : ''"
+          >
             <i class="bi bi-heart" [class.me-2]="!navbarColapsado"></i>
             <span *ngIf="!navbarColapsado">Notificaciones</span>
           </a>
@@ -41,9 +69,14 @@
 
         <br>
 
-        <!-- SUBIR CONTENIDO (MURO) -->
+        <!-- SUBIR CONTENIDO (abre modal) -->
         <li class="nav-item">
-          <a class="nav-link text-light" routerLink="/muro" [title]="navbarColapsado ? 'Subir Contenido' : ''">
+          <a
+            class="nav-link text-light"
+            (click)="abrirModalSubirContenido()"
+            style="cursor: pointer;"
+            [title]="navbarColapsado ? 'Subir contenido' : ''"
+          >
             <i class="bi bi-plus-square" [class.me-2]="!navbarColapsado"></i>
             <span *ngIf="!navbarColapsado">Subir Contenido</span>
           </a>
@@ -51,24 +84,32 @@
 
         <br>
 
-        <!-- PERFIL-->
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/usuario/perfil" [title]="navbarColapsado ? 'Perfil' : ''">
-              <i class="bi bi-person-circle" [class.me-2]="!navbarColapsado"></i>
-              <span *ngIf="!navbarColapsado">Perfil</span>
-            </a>
-          </li>
-
+        <!-- PERFIL -->
+        <li class="nav-item">
+          <a
+            class="nav-link text-light"
+            routerLink="/usuario/perfil"
+            [title]="navbarColapsado ? 'Perfil' : ''"
+          >
+            <i class="bi bi-person-circle" [class.me-2]="!navbarColapsado"></i>
+            <span *ngIf="!navbarColapsado">Perfil</span>
+          </a>
+        </li>
 
         <br>
 
         <!-- CERRAR SESIÓN -->
         <li class="nav-item">
-          <a class="nav-link text-light" routerLink="/login" [title]="navbarColapsado ? 'Cerrar Sesión' : ''">
+          <a
+            class="nav-link text-light"
+            routerLink="/login"
+            [title]="navbarColapsado ? 'Cerrar Sesión' : ''"
+          >
             <i class="bi bi-box-arrow-right" [class.me-2]="!navbarColapsado"></i>
             <span *ngIf="!navbarColapsado">Cerrar Sesión</span>
           </a>
         </li>
+
       </ul>
     </div>
   </div>

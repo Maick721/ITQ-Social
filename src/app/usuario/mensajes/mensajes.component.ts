@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { SubirContenidoComponent } from '../../usuario/subir-contenido/subir-contenido.component';
+
 
 
 @Component({
   selector: 'app-mensajes',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, SubirContenidoComponent],
   templateUrl: './mensajes.component.html',
   styleUrls: ['./mensajes.component.css']
 })

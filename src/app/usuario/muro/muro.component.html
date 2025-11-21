@@ -1,50 +1,40 @@
-<div class="container my-5">
-  <div class="row">
-    <div class="col-12 col-md-8 offset-md-2">
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-7">
 
-      <!-- Barra de búsqueda -->
-      <div class="card border-dark shadow-sm mb-4">
-        <div class="card-body py-3">
-          <div class="d-flex align-items-center">
-            <div class="flex-grow-1">
-              <form class="d-relative">
-                <div class="input-group">
-                  <span class="input-group-text bg-white border-dark border-end-0">
-                    <i class="fas fa-search text-dark"></i>
-                  </span>
-                  <input class="form-control rounded-end border-dark border-start-0 shadow-none" type="search" placeholder="Buscar">
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publicación -->
-      <div class="card border-dark mb-4">
+      <!-- SOLO LAS PUBLICACIONES -->
+      <div *ngFor="let pub of publicaciones" class="card border-dark mb-4">
         <div class="card-body">
-          <div class="d-flex align-items-center mb-4">
-            <img src="images/yo.png" alt="User Avatar" class="rounded-circle me-3 border border-dark" width="40" height="40">
+          <div class="d-flex align-items-center mb-3">
+            <img [src]="pub.usuarioAvatar"
+                 class="rounded-circle me-3 border border-dark"
+                 width="40" height="40">
             <div>
-              <h5 class="mb-0">Maiccol Zurita</h5>
-              <small class="text-muted">2 hours ago</small>
+              <h6 class="mb-0">{{ pub.usuarioNombre }}</h6>
+              <small class="text-muted">{{ pub.tiempo }}</small>
             </div>
           </div>
-          <p class="comentario">Evento del itq</p>
-          <img src="images/evento.jpg" alt="Project Update" class="img-fluid mb-3 rounded border border-dark">
+
+          <p class="mb-2">{{ pub.comentario }}</p>
+
+          <img [src]="pub.imagenUrl"
+               class="img-fluid mb-3 rounded border border-dark"
+               alt="Imagen publicada">
+
           <div class="d-flex justify-content-end">
-            <button class="btn btn-outline-dark btn-sm me-2 border-dark">
-              <i class="fas fa-thumbs-up"></i> Like
+            <button class="btn btn-outline-dark btn-sm me-2">
+              <i class="fa-regular fa-thumbs-up"></i> Like
             </button>
-            <button class="btn btn-outline-dark btn-sm me-2 border-dark">
-              <i class="fas fa-comment"></i> Comment
+            <button class="btn btn-outline-dark btn-sm me-2">
+              <i class="fa-regular fa-comment"></i> Comment
             </button>
-            <button class="btn btn-outline-dark btn-sm border-dark">
-              <i class="fas fa-share"></i> Share
+            <button class="btn btn-outline-dark btn-sm">
+              <i class="fa-solid fa-share"></i> Share
             </button>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

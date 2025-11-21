@@ -1,101 +1,59 @@
-<!-- Overlay de fondo -->
 <div class="notificaciones-overlay" *ngIf="isOpen" (click)="cerrarPanel()"></div>
 
-<!-- Panel de notificaciones -->
 <div class="notificaciones-panel" [class.open]="isOpen">
   <!-- Botón flecha para cerrar -->
-  <button class="btn-flecha-cerrar" (click)="cerrarPanel()" title="Cerrar y volver al menú">
-    <i class="bi bi-chevron-left"></i>
+  <button class="btn-flecha-cerrar" (click)="cerrarPanel()" title="Cerrar">
+    <i class="fa-solid fa-chevron-left"></i>
   </button>
 
   <!-- Header -->
   <div class="notificaciones-header">
-    <h2 class="titulo">Actualizaciones</h2>
-    
+    <h2>Notificaiones</h2>
     <div class="header-actions">
       <button class="btn-cerrar" (click)="cerrarPanel()" title="Cerrar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+        <i class="fa-solid fa-xmark"></i>
       </button>
-      <button 
-        class="btn-marcar-todas"
-        (click)="marcarTodasComoLeidas()"
-        *ngIf="notificacionesNoLeidas > 0">
-        Marcar todas como leídas
+      <button class="btn-marcar-todas" (click)="marcarTodasComoLeidas()" *ngIf="notificacionesNoLeidas > 0">
+        <i class="fa-solid fa-check-double"></i> Marcar todas como leídas
       </button>
     </div>
   </div>
 
   <!-- Filtros -->
   <div class="filtros">
-    <button 
-      class="filtro-btn"
-      [class.activo]="filtroActual === 'todas'"
-      (click)="cambiarFiltro('todas')">
-      Todas
+    <button class="filtro-btn" [class.activo]="filtroActual === 'todas'" (click)="cambiarFiltro('todas')">
+      <i class="fa-solid fa-bell"></i> Todas 
       <span class="badge">{{ notificaciones.length }}</span>
     </button>
-    <button 
-      class="filtro-btn"
-      [class.activo]="filtroActual === 'noLeidas'"
-      (click)="cambiarFiltro('noLeidas')">
-      No leídas
+    <button class="filtro-btn" [class.activo]="filtroActual === 'noLeidas'" (click)="cambiarFiltro('noLeidas')">
+      <i class="fa-regular fa-envelope"></i> No leídas 
       <span class="badge" *ngIf="notificacionesNoLeidas > 0">{{ notificacionesNoLeidas }}</span>
     </button>
   </div>
 
   <!-- Lista de notificaciones -->
   <div class="notificaciones-lista">
-    <div 
-      *ngFor="let notificacion of notificacionesFiltradas"
-      class="notificacion-item"
-      [class.no-leida]="!notificacion.leida"
-      (click)="marcarComoLeida(notificacion)">
-      
-      <!-- Avatar del usuario -->
+    <div *ngFor="let n of notificacionesFiltradas" class="notificacion-item" [class.no-leida]="!n.leida" (click)="marcarComoLeida(n)">
       <div class="notificacion-avatar">
-        <img [src]="notificacion.usuarioEmisor.avatar" [alt]="notificacion.usuarioEmisor.nombre">
-        <span class="icono-tipo">{{ obtenerIcono(notificacion.tipo) }}</span>
+        <img [src]="n.usuarioEmisor.avatar" [alt]="n.usuarioEmisor.nombre">
+        <span class="icono-tipo"><i [class]="obtenerIcono(n.tipo)"></i></span>
       </div>
-
-      <!-- Contenido de la notificación -->
       <div class="notificacion-contenido">
-        <div class="notificacion-texto">
-          <span class="usuario-nombre">{{ notificacion.usuarioEmisor.nombre }}</span>
-          <span class="mensaje">{{ notificacion.mensaje }}</span>
-        </div>
-        <span class="notificacion-tiempo">{{ obtenerTiempoTranscurrido(notificacion.fecha) }}</span>
+        <span class="usuario-nombre">{{ n.usuarioEmisor.nombre }}</span>
+        <span class="mensaje">{{ n.mensaje }}</span>
+        <span class="notificacion-tiempo">{{ obtenerTiempoTranscurrido(n.fecha) }}</span>
       </div>
-
-      <!-- Imagen de la publicación (si existe) -->
-      <div class="notificacion-imagen" *ngIf="notificacion.imagen">
-        <img [src]="notificacion.imagen" alt="Imagen de publicación">
-      </div>
-
-      <!-- Botón eliminar -->
-      <button 
-        class="btn-eliminar"
-        (click)="eliminarNotificacion($event, notificacion.id)"
-        title="Eliminar notificación">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+      <img *ngIf="n.imagen" [src]="n.imagen" class="notificacion-imagen" alt="Imagen">
+      <button class="btn-eliminar" (click)="eliminarNotificacion($event, n.id)" title="Eliminar">
+        <i class="fa-solid fa-trash"></i>
       </button>
-
-      <!-- Indicador de no leída -->
-      <div class="indicador-no-leida" *ngIf="!notificacion.leida"></div>
+      <div class="indicador-no-leida" *ngIf="!n.leida"></div>
     </div>
 
     <!-- Mensaje cuando no hay notificaciones -->
     <div class="sin-notificaciones" *ngIf="notificacionesFiltradas.length === 0">
-      <div class="sin-notificaciones-icono">🔔</div>
-      <p class="sin-notificaciones-texto">
-        {{ filtroActual === 'noLeidas' ? 'No tienes notificaciones sin leer' : 'No tienes notificaciones' }}
-      </p>
+      <i class="fa-regular fa-bell-slash fa-2x"></i>
+      <p>{{ filtroActual === 'noLeidas' ? 'No tienes notificaciones sin leer' : 'No tienes notificaciones' }}</p>
     </div>
   </div>
 </div>
-

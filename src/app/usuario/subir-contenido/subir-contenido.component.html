@@ -1,0 +1,43 @@
+<!-- Modal subir contenido (NO tiene muro, NI botón arriba) -->
+<div class="modal fade show d-block"
+     *ngIf="subirContenidoService.modalAbierto"
+     tabindex="-1"
+     style="background: rgba(0,0,0,0.6);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-dark">
+      <div class="modal-header border-dark">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-image me-2"></i> Nueva publicación
+        </h5>
+        <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <label class="form-label fw-bold">Imagen</label>
+        <input type="file"
+               class="form-control mb-3"
+               accept="image/*"
+               (change)="onArchivoSeleccionado($event)">
+
+        <div *ngIf="imagenPreview" class="text-center mb-3">
+          <img [src]="imagenPreview"
+               class="img-fluid rounded border border-dark"
+               style="max-height: 250px;">
+        </div>
+
+        <label class="form-label fw-bold">Comentario</label>
+        <textarea class="form-control"
+                  rows="3"
+                  [(ngModel)]="comentario"
+                  placeholder="Escribe algo..."></textarea>
+      </div>
+
+      <div class="modal-footer border-top border-dark">
+        <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn btn-dark" (click)="publicar()">
+          <i class="fa-solid fa-paper-plane me-1"></i> Publicar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,137 +1,108 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
 import { NotificacionesService } from '../../services/notificaciones.service';
 import { NotificacionesPanelService } from '../../services/notificaciones-panel.service';
 import { Notificacion } from '../../models/notificacion.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-notificaciones',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './notificaciones.component.html',
-  styleUrl: './notificaciones.component.css'
+  styleUrls: ['./notificaciones.component.css']
 })
-export class NotificacionesComponent implements OnInit, OnDestroy {
-  
+export class NotificacionesComponent implements OnInit {
+
+  // Estado del panel
+  isOpen: boolean = false;
+
+  // Lista de notificaciones
   notificaciones: Notificacion[] = [];
-  notificacionesFiltradas: Notificacion[] = [];
   filtroActual: 'todas' | 'noLeidas' = 'todas';
   notificacionesNoLeidas: number = 0;
-  isOpen: boolean = false; // Controla si el panel está abierto
-  
-  private subscriptions: Subscription = new Subscription();
+
+  private subs: Subscription[] = [];
 
   constructor(
     private notificacionesService: NotificacionesService,
-    private notificacionesPanelService: NotificacionesPanelService
+    private panelService: NotificacionesPanelService
   ) {}
 
   ngOnInit(): void {
     // Suscribirse al estado del panel
-    this.subscriptions.add(
-      this.notificacionesPanelService.isOpen$.subscribe(
-        isOpen => this.isOpen = isOpen
-      )
+    this.subs.push(
+      this.panelService.isOpen$.subscribe(open => this.isOpen = open)
     );
 
     // Suscribirse a las notificaciones
-    this.subscriptions.add(
-      this.notificacionesService.obtenerNotificaciones().subscribe(
-        notificaciones => {
-          this.notificaciones = notificaciones;
-          this.aplicarFiltro();
-        }
-      )
+    this.subs.push(
+      this.notificacionesService.obtenerNotificaciones().subscribe(n => this.notificaciones = n)
     );
 
-    // Suscribirse al contador de notificaciones no leídas
-    this.subscriptions.add(
-      this.notificacionesService.obtenerContadorNoLeidas().subscribe(
-        contador => this.notificacionesNoLeidas = contador
-      )
+    // Suscribirse al contador de no leídas
+    this.subs.push(
+      this.notificacionesService.obtenerContadorNoLeidas().subscribe(c => this.notificacionesNoLeidas = c)
     );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.subs.forEach(s => s.unsubscribe());
   }
 
-  // Aplicar filtro a las notificaciones
-  aplicarFiltro(): void {
-    if (this.filtroActual === 'noLeidas') {
-      this.notificacionesFiltradas = this.notificaciones.filter(n => !n.leida);
-    } else {
-      this.notificacionesFiltradas = this.notificaciones;
-    }
+  // Abrir/cerrar panel
+  cerrarPanel(): void {
+    this.panelService.cerrar();
   }
 
-  // Cambiar filtro
+  // Filtros
   cambiarFiltro(filtro: 'todas' | 'noLeidas'): void {
     this.filtroActual = filtro;
-    this.aplicarFiltro();
   }
 
-  // Marcar notificación como leída
-  marcarComoLeida(notificacion: Notificacion): void {
-    if (!notificacion.leida) {
-      this.notificacionesService.marcarComoLeida(notificacion.id);
-    }
+  get notificacionesFiltradas(): Notificacion[] {
+    return this.filtroActual === 'noLeidas'
+      ? this.notificaciones.filter(n => !n.leida)
+      : this.notificaciones;
   }
 
-  // Marcar todas como leídas
+  // Acciones sobre notificaciones
+  marcarComoLeida(n: Notificacion): void {
+    this.notificacionesService.marcarComoLeida(n.id);
+  }
+
   marcarTodasComoLeidas(): void {
     this.notificacionesService.marcarTodasComoLeidas();
   }
 
-  // Eliminar notificación
-  eliminarNotificacion(event: Event, notificacionId: number): void {
+  eliminarNotificacion(event: Event, id: number): void {
     event.stopPropagation();
-    this.notificacionesService.eliminarNotificacion(notificacionId);
+    this.notificacionesService.eliminarNotificacion(id);
   }
 
-  // Obtener el ícono según el tipo de notificación
+  // Helpers
   obtenerIcono(tipo: string): string {
-    const iconos: { [key: string]: string } = {
-      'like': '❤️',
-      'comentario': '💬',
-      'amistad': '👥',
-      'publicacion': '📷',
-      'etiqueta': '🏷️',
-      'compartir': '🔄'
-    };
-    return iconos[tipo] || '🔔';
+    switch (tipo) {
+      case 'like': return 'fa-solid fa-heart text-danger';
+      case 'comentario': return 'fa-solid fa-comment text-primary';
+      case 'publicacion': return 'fa-solid fa-image text-success';
+      case 'amistad': return 'fa-solid fa-user-plus text-info';
+      case 'etiqueta': return 'fa-solid fa-tag text-warning';
+      case 'compartir': return 'fa-solid fa-share text-secondary';
+      default: return 'fa-solid fa-bell';
+    }
   }
 
-  // Calcular el tiempo transcurrido
   obtenerTiempoTranscurrido(fecha: Date): string {
     const ahora = new Date();
-    const diferencia = ahora.getTime() - new Date(fecha).getTime();
-    
-    const minutos = Math.floor(diferencia / 60000);
-    const horas = Math.floor(diferencia / 3600000);
-    const dias = Math.floor(diferencia / 86400000);
+    const diffMs = ahora.getTime() - new Date(fecha).getTime();
+    const diffMin = Math.floor(diffMs / 60000);
 
-    if (minutos < 1) return 'Ahora';
-    if (minutos < 60) return `${minutos}m`;
-    if (horas < 24) return `${horas}h`;
-    if (dias < 7) return `${dias}d`;
-    if (dias < 30) return `${Math.floor(dias / 7)}sem`;
-    return `${Math.floor(dias / 30)}mes`;
-  }
-
-  // Abrir panel de notificaciones
-  abrirPanel(): void {
-    this.notificacionesPanelService.abrir();
-  }
-
-  // Cerrar panel de notificaciones
-  cerrarPanel(): void {
-    this.notificacionesPanelService.cerrar();
-  }
-
-  // Toggle del panel
-  togglePanel(): void {
-    this.notificacionesPanelService.toggle();
+    if (diffMin < 1) return 'Hace unos segundos';
+    if (diffMin < 60) return `Hace ${diffMin} min`;
+    const diffHoras = Math.floor(diffMin / 60);
+    if (diffHoras < 24) return `Hace ${diffHoras} h`;
+    const diffDias = Math.floor(diffHoras / 24);
+    return `Hace ${diffDias} días`;
   }
 }
