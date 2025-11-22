@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotificacionesService } from '../../services/notificaciones.service';
 import { NotificacionesPanelService } from '../../services/notificaciones-panel.service';
-import { Notificacion } from '../../models/notificacion.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,7 +17,7 @@ export class NotificacionesComponent implements OnInit {
   isOpen: boolean = false;
 
   // Lista de notificaciones
-  notificaciones: Notificacion[] = [];
+  notificaciones: any[] = [];
   filtroActual: 'todas' | 'noLeidas' = 'todas';
   notificacionesNoLeidas: number = 0;
 
@@ -60,14 +59,14 @@ export class NotificacionesComponent implements OnInit {
     this.filtroActual = filtro;
   }
 
-  get notificacionesFiltradas(): Notificacion[] {
+  get notificacionesFiltradas(): any[] {
     return this.filtroActual === 'noLeidas'
       ? this.notificaciones.filter(n => !n.leida)
       : this.notificaciones;
   }
 
   // Acciones sobre notificaciones
-  marcarComoLeida(n: Notificacion): void {
+  marcarComoLeida(n: any): void {
     this.notificacionesService.marcarComoLeida(n.id);
   }
 

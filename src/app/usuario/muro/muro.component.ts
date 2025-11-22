@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SubirContenidoService, Publicacion } from '../../services/subir-contenido.service';
+import { SubirContenidoService } from '../../services/subir-contenido.service';
 
 @Component({
   selector: 'app-muro',
@@ -11,7 +11,7 @@ import { SubirContenidoService, Publicacion } from '../../services/subir-conteni
 })
 export class MuroComponent implements OnInit {
 
-  publicaciones: Publicacion[] = [];
+  publicaciones: any[] = [];
 
   constructor(private subirContenidoService: SubirContenidoService) {}
 

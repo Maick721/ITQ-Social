@@ -1,53 +1,92 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SubirContenidoService } from '../../services/subir-contenido.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-subir-contenido',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './subir-contenido.component.html',
   styleUrls: ['./subir-contenido.component.css']
 })
-export class SubirContenidoComponent {
+export class SubirContenidoComponent implements OnDestroy {
+  
+  // CAMBIA ESTO: haz la variable pública para probar
+  public modalAbierto: boolean = false;
+  
+  private subscription: Subscription;
 
-  comentario: string = '';
-  imagenPreview: string | null = null;
-  imagenUrlFinal: string | null = null;
+  nueva: any = {
+    url: '',
+    descripcion: '',
+    likes: 0,
+    comentarios: [],
+    compartidos: 0
+  };
 
-  constructor(public subirContenidoService: SubirContenidoService) {}
+  @Output() publicada = new EventEmitter<any>();
 
-  cerrarModal() {
-    this.subirContenidoService.cerrarModal();
-    this.comentario = '';
-    this.imagenPreview = null;
-    this.imagenUrlFinal = null;
+  constructor(private subirContenidoService: SubirContenidoService) {
+    console.log('🔵 SUBIR-CONTENIDO: Constructor ejecutado');
+    
+    this.subscription = this.subirContenidoService.modalAbierto$.subscribe(
+      abierto => {
+        console.log('🔄 SUBSCRIPCIÓN: Valor recibido =', abierto);
+        this.modalAbierto = abierto;
+      }
+    );
   }
 
-  onArchivoSeleccionado(event: any) {
-    const archivo = event.target.files[0];
-    if (!archivo) return;
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagenPreview = reader.result as string;
-      this.imagenUrlFinal = this.imagenPreview;
+      this.nueva.url = String(reader.result);
     };
-    reader.readAsDataURL(archivo);
+    reader.readAsDataURL(file);
   }
 
-  publicar() {
-    if (!this.comentario.trim() || !this.imagenUrlFinal) {
-      alert('Debes seleccionar una imagen y escribir un comentario.');
-      return;
-    }
+  onDescripcionChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.nueva.descripcion = input.value;
+  }
 
-    this.subirContenidoService.agregarPublicacion({
-      comentario: this.comentario.trim(),
-      imagenUrl: this.imagenUrlFinal
-    });
+  publicar(): void {
+    if (!this.nueva.url || !this.nueva.descripcion) return;
+
+    const fechaHoy = new Date().toISOString().slice(0, 10);
+
+    const publicacion = {
+      ...this.nueva,
+      fecha: fechaHoy
+    };
+
+    this.subirContenidoService.agregarPublicacion(publicacion);
+    this.publicada.emit(publicacion);
 
     this.cerrarModal();
+  }
+
+  cerrarModal(): void {
+    this.subirContenidoService.cerrarModal();
+    this.resetForm();
+  }
+
+  private resetForm(): void {
+    this.nueva = {
+      url: '',
+      descripcion: '',
+      likes: 0,
+      comentarios: [],
+      compartidos: 0
+    };
   }
 }

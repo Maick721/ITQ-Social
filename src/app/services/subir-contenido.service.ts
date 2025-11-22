@@ -1,68 +1,62 @@
 import { Injectable } from '@angular/core';
-
-export interface Publicacion {
-  id: number;
-  usuarioNombre: string;
-  usuarioAvatar: string;
-  comentario: string;
-  imagenUrl: string;
-  tiempo: string;
-  likes: number;
-  comentarios: number;
-  compartidos: number;
-}
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubirContenidoService {
+  private modalAbierto = new BehaviorSubject<boolean>(false);
+  modalAbierto$ = this.modalAbierto.asObservable();
 
-  private publicaciones: Publicacion[] = [
+  private publicaciones: any[] = [
     {
       id: 1,
-      usuarioNombre: 'Maiccol Zurita',
-      usuarioAvatar: 'images/yo.png',
-      comentario: 'Evento del ITQ',
-      imagenUrl: 'images/evento.jpg',
-      tiempo: '2 hours ago',
-      likes: 10,
-      comentarios: 3,
-      compartidos: 1
+      url: 'https://picsum.photos/500/500?random=1',
+      descripcion: 'Mi primera publicación en ITQ Social!',
+      fecha: '2024-01-15',
+      likes: 15,
+      comentarios: [],
+      compartidos: 2
+    },
+    {
+      id: 2,
+      url: 'https://picsum.photos/500/500?random=2',
+      descripcion: 'Disfrutando del campus ITQ',
+      fecha: '2024-01-14',
+      likes: 23,
+      comentarios: [],
+      compartidos: 5
     }
   ];
 
-  getPublicaciones(): Publicacion[] {
+  private publicacionesSubject = new BehaviorSubject<any[]>(this.publicaciones);
+  public publicaciones$ = this.publicacionesSubject.asObservable();
+
+  // Método para abrir modal
+abrirModal(): void {
+  console.log('🔵 SERVICIO: abrirModal() ejecutado');
+  this.modalAbierto.next(true);
+  console.log('🔵 SERVICIO: BehaviorSubject actualizado a true');
+}
+  cerrarModal(): void {
+    this.modalAbierto.next(false);
+  }
+
+  // Método para obtener publicaciones
+  getPublicaciones(): any[] {
     return this.publicaciones;
   }
 
-  agregarPublicacion(data: { comentario: string; imagenUrl: string }): void {
-    const nueva: Publicacion = {
-      id: Date.now(),
-      usuarioNombre: 'Maiccol Zurita',
-      usuarioAvatar: 'images/yo.png',
-      comentario: data.comentario,
-      imagenUrl: data.imagenUrl,
-      tiempo: 'Justo ahora',
+  // Método para agregar publicación
+  agregarPublicacion(publicacion: any): void {
+    const nuevaPublicacion = {
+      ...publicacion,
+      id: Date.now(), // ID único
       likes: 0,
-      comentarios: 0,
+      comentarios: [],
       compartidos: 0
     };
-
-    this.publicaciones.unshift(nueva);
-  }
-
-  // 🔹 ESTADO DEL MODAL
-  private _modalAbierto = false;
-
-  get modalAbierto(): boolean {
-    return this._modalAbierto;
-  }
-
-  abrirModal(): void {
-    this._modalAbierto = true;
-  }
-
-  cerrarModal(): void {
-    this._modalAbierto = false;
+    this.publicaciones.unshift(nuevaPublicacion); // Agregar al inicio
+    this.publicacionesSubject.next([...this.publicaciones]);
   }
 }

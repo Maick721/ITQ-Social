@@ -1,3 +1,4 @@
+
 <div class="container-fluid h-100 d-flex">
   <div
     class="bg-dark text-light p-3 d-flex flex-column justify-content-between navbar-lateral"
@@ -73,12 +74,32 @@
         <li class="nav-item">
           <a
             class="nav-link text-light"
-            (click)="abrirModalSubirContenido()"
+            (click)="abrirModal()"
             style="cursor: pointer;"
             [title]="navbarColapsado ? 'Subir contenido' : ''"
           >
             <i class="bi bi-plus-square" [class.me-2]="!navbarColapsado"></i>
             <span *ngIf="!navbarColapsado">Subir Contenido</span>
+          </a>
+        </li>
+
+        <br>
+
+                <!-- CURSOS -->
+        <li class="nav-item">
+          <a class="nav-link text-light" routerLink="/cursos">
+            <i class="bi bi-book"></i>
+            <span *ngIf="!navbarColapsado">Cursos</span>
+          </a>
+        </li>
+
+        <br>
+
+        <!-- HACKATONES -->
+        <li class="nav-item">
+          <a class="nav-link text-light" routerLink="/hackatones">
+            <i class="bi bi-lightning-charge-fill"></i>
+            <span *ngIf="!navbarColapsado">Hackatones</span>
           </a>
         </li>
 

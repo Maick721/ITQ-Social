@@ -6,30 +6,31 @@
       <div *ngFor="let pub of publicaciones" class="card border-dark mb-4">
         <div class="card-body">
           <div class="d-flex align-items-center mb-3">
-            <img [src]="pub.usuarioAvatar"
+            <!-- Avatar opcional: si quieres mostrarlo, usa una imagen fija o un campo extra -->
+            <img src="assets/default-avatar.png"
                  class="rounded-circle me-3 border border-dark"
                  width="40" height="40">
             <div>
-              <h6 class="mb-0">{{ pub.usuarioNombre }}</h6>
-              <small class="text-muted">{{ pub.tiempo }}</small>
+              <h6 class="mb-0">Usuario</h6>
+              <small class="text-muted">{{ pub.fecha }}</small>
             </div>
           </div>
 
-          <p class="mb-2">{{ pub.comentario }}</p>
+          <p class="mb-2">{{ pub.descripcion }}</p>
 
-          <img [src]="pub.imagenUrl"
+          <img [src]="pub.url"
                class="img-fluid mb-3 rounded border border-dark"
                alt="Imagen publicada">
 
           <div class="d-flex justify-content-end">
             <button class="btn btn-outline-dark btn-sm me-2">
-              <i class="fa-regular fa-thumbs-up"></i> Like
+              <i class="fa-regular fa-thumbs-up"></i> Like ({{ pub.likes }})
             </button>
             <button class="btn btn-outline-dark btn-sm me-2">
-              <i class="fa-regular fa-comment"></i> Comment
+              <i class="fa-regular fa-comment"></i> Comment ({{ pub.comentarios.length }})
             </button>
             <button class="btn btn-outline-dark btn-sm">
-              <i class="fa-solid fa-share"></i> Share
+              <i class="fa-solid fa-share"></i> Share ({{ pub.compartidos }})
             </button>
           </div>
         </div>
