@@ -1,148 +1,92 @@
-/* CONTENEDOR PRINCIPAL */
+/* perfil.component.css */
 .perfil-container {
-  margin-left: 260px; /* un poco más que el ancho del navbar */
-  margin-top: 1rem;
-}
-/* CARD DE PERFIL */
-.perfil-card {
-  padding: 1rem;
-  border-radius: 0.75rem;
-}
+  margin-left: 210px;
+  padding: 20px;
+  min-height: 100vh;
+  background: #f8f9fa;
+} 
 
-/* FOTO DE PERFIL */
 .perfil-foto {
   width: 100px;
   height: 100px;
-  object-fit: cover;
   border-radius: 50%;
-}
-
-/* TEXTO PRINCIPAL */
-.perfil-card h3 {
-  font-size: 1.25rem;
-}
-
-.perfil-card p.text-muted {
-  font-size: 0.85rem;
-}
-
-.text-muted.small {
-  font-size: 0.75rem;
-}
-
-/* ESTADÍSTICAS */
-.perfil-card .fs-5 {
-  font-size: 1rem;
-}
-
-.perfil-card .text-muted.small i {
-  font-size: 0.75rem;
-}
-
-/* BOTONES */
-.perfil-card .btn {
-  padding: 0.4rem 0.6rem;
-  font-size: 0.85rem;
-}
-
-/* GALERÍA DE FOTOS */
-.foto-galeria {
-  height: 100px;
   object-fit: cover;
-  border-radius: 0.5rem;
+  border: 3px solid #ff0000;
 }
 
-/* MODAL DETALLE */
+.galeria-fotos .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.foto-galeria {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Modal esencial */
 .detalle-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.8);
+  z-index: 1050;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  padding: 20px;
 }
 
 .detalle-panel {
-  background: #fff;
+  background: white;
+  border-radius: 10px;
   max-width: 500px;
-  width: 90%;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .detalle-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #dee2e6;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+}
+
+.detalle-content {
+  padding: 20px;
 }
 
 .detalle-img {
   width: 100%;
-  max-height: 250px;
+  max-height: 300px;
   object-fit: contain;
-  border-radius: 0.5rem;
+  border-radius: 8px;
 }
 
-.detalle-info {
-  margin-top: 1rem;
-  font-size: 0.9rem;
+/* Responsive */
+@media (max-width: 992px) {
+  .perfil-container { margin-left: 80px; padding: 15px; }
 }
 
-.chips {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.chip {
-  background: #f1f1f1;
-  padding: 0.3rem 0.6rem;
-  border-radius: 1rem;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.comentarios-box {
-  margin-top: 1rem;
-}
-
-.bubble {
-  background: #f8f9fa;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-}
-
-/* RESPONSIVE */
 @media (max-width: 768px) {
-  .perfil-foto {
-    width: 80px;
-    height: 80px;
-  }
+  .perfil-container { margin-left: 0; margin-bottom: 60px; padding: 10px; }
+  .perfil-foto { width: 80px; height: 80px; }
+  .galeria-fotos .row { grid-template-columns: repeat(3, 1fr); }
+  .foto-galeria { height: 100px; }
+  .detalle-panel { max-width: 95%; margin: 10px; }
+}
 
-  .perfil-card h3 {
-    font-size: 1rem;
-  }
-
-  .perfil-card .btn {
-    font-size: 0.75rem;
-  }
-
-  .foto-galeria {
-    height: 80px;
-  }
-
-  .detalle-panel {
-    max-width: 90%;
-  }
+@media (max-width: 480px) {
+  .perfil-container { padding: 5px; }
+  .galeria-fotos .row { grid-template-columns: repeat(2, 1fr); }
+  .foto-galeria { height: 90px; }
+  .perfil-foto { width: 70px; height: 70px; }
 }

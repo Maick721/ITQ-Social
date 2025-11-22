@@ -1,118 +1,60 @@
-/* Estilos generales */
-.container-fluid {
-  height: 100vh;
-  padding-left: 200px; /* Espacio para el navbar */
-  transition: padding-left 0.3s ease;
-}
-
-/* Barra lateral */
 .navbar-lateral {
+  background: #000 ;
   width: 250px;
-  transition: width 0.3s ease;
-  position: relative;
-}
-
-.navbar-lateral.colapsado {
-  width: 80px;
-}
-
-/* Botón de toggle */
-.btn-toggle {
-  position: absolute;
-  top: 10px;
-  right: -15px;
-  width: 30px;
-  height: 30px;
-  background-color: #8d2121;
-  border: none;
-  border-radius: 50%;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1001;
-  transition: all 0.3s ease;
-}
-
-.btn-toggle:hover {
-  background-color: #a62626;
-  transform: scale(1.1);
-}
-
-.btn-toggle i {
-  font-size: 16px;
-}
-
-.bg-dark {
-  background-color: #000000 !important;
+  height: 100vh;
   position: fixed;
-  top: 0;
   left: 0;
-  bottom: 0;
+  top: 0;
   z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+  overflow-y: auto;
+}
+
+.navbar-logo { 
+  max-width:185%; 
+  max-height:170px;
+}
+
+.logo-container { 
+  padding: 25px 0; 
+  border-bottom: 1px solid #333; 
+  margin-bottom: 25px; 
 }
 
 .nav-link {
-  padding: 0.5rem 1rem;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
+  color: #fff !important;
+  text-decoration: none;
 }
 
-.navbar-lateral.colapsado .nav-link {
-  justify-content: center;
-  padding: 0.5rem;
+.nav-link:hover { background-color: #562828; }
+.nav-link.active { background-color: #ff0000; }
+.nav-link i { font-size: 1.2rem; min-width: 25px; }
+
+/* Tablet */
+@media (max-width: 992px) {
+  .navbar-lateral { width: 80px; }
+  .navbar-logo { max-width: 65px; }
+  .nav-text { display: none; }
+  .nav-link { justify-content: center; }
 }
 
-.navbar-lateral.colapsado .nav-link i {
-  margin: 0 !important;
-  font-size: 1.8rem !important;
-  display: block;
+/* Móvil */
+@media (max-width: 768px) {
+  .navbar-lateral {
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    top: auto;
+    flex-direction: row ;
+    padding: 0 ;
+  }
+  
+  .logo-container { display: none; }
+  .nav { flex-direction: row ; }
+  .nav-link { flex-direction: column; height: 60px; }
 }
-
-.navbar-lateral.colapsado .bi {
-  font-size: 1.8rem !important;
-  display: block;
-}
-
-.nav-link:hover {
-  background-color: #8d2121;
-}
-
-.bi {
-  font-size: 1.2rem;
-  vertical-align: middle;
-  transition: font-size 0.3s ease;
-}
-
-.badge {
-  font-size: 0.8rem;
-}
-
-/* Logotipo */
-.mw-100 {
-  max-width: 100%;
-  transition: opacity 0.3s ease;
-}
-
-.mh-100 {
-  max-height: 100%;
-}
-
-/* Transición suave del contenedor */
-.navbar-lateral .nav {
-  transition: all 0.3s ease;
-}
-
-/* Espaciado cuando está colapsado */
-.navbar-lateral.colapsado br {
-  display: none;
-}
-
-.navbar-lateral.colapsado .nav-item {
-  margin-bottom: 1rem;
-}
-
-

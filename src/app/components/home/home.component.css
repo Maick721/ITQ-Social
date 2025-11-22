@@ -1,0 +1,30 @@
+/* home.component.css */
+.home-with-navbar {
+  display: flex;
+  min-height: 100vh;
+}
+
+.home-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .home-content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .home-content {
+    margin-left: 0;
+    width: 100%;
+    margin-bottom: 60px;
+    padding: 15px;
+  }
+}

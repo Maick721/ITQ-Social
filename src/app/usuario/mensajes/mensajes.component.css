@@ -1,16 +1,17 @@
-/* Separar todo del navbar lateral */
 .contenido-mensajes,
 .contenido-chat {
-  margin-left: 120px; 
+  margin-left: 170px;
+  padding: 30px;
+  min-height: 150vh;
+  background: #f8f9fa;
 }
 
-/* LISTA DE MENSAJES con ancho cómodo */
-.mensajes-wrapper {
-  max-width: 900px;   
+.mensajes-wrapper,
+.chat-wrapper {
+  max-width:1050px;
   margin: 0 auto;
 }
 
-/* FOTO DEL CHAT */
 .chat-foto {
   width: 45px;
   height: 45px;
@@ -18,30 +19,35 @@
   object-fit: cover;
 }
 
-.chat-item:hover {
-  background: #f4f4f4;
-}
-
-/* CHAT ABIERTO con ancho intermedio */
-.chat-wrapper {
-  max-width: 1200px;   /* ← ANCHO PERFECTO (ni gigante ni angosto) */
-  margin: 0 auto;     /* centrado */
-}
-
-/* Burbujas de mensajes */
 .msg-yo {
   background: #d1e7ff;
   padding: 8px 20px;
-  max-width: 50%;      /* ← un poquito más ancho */
+  max-width: 70%;
   margin-left: auto;
-  margin-bottom: 6px;
   border-radius: 12px;
 }
 
 .msg-otra {
   background: #f1f1f1;
   padding: 8px 12px;
-  max-width: 8000%;      /* ← más ancho también */
-  margin-bottom: 6px;
+  max-width: 70%; /* Corregido */
   border-radius: 12px;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .contenido-mensajes,
+  .contenido-chat {
+    margin-left: 80px;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .contenido-mensajes,
+  .contenido-chat {
+    margin-left: 0;
+    margin-bottom: 60px;
+    padding: 15px;
+  }
 }

@@ -1,8 +1,9 @@
 <app-navbar></app-navbar>
 <app-subir-contenido (publicada)="onPublicada($event)"></app-subir-contenido>
-
 <div class="container mt-4 perfil-container">
-  <div class="card perfil-card p-4">
+  <div class="row justify-content-center">
+    <div class="col-12" style="max-width: 900px;"> 
+      <div class="card p-4">
 
     <!-- FOTO + DATOS -->
     <div class="text-center">
@@ -28,27 +29,23 @@
         <strong>{{ usuario.publicaciones }}</strong><br>
         <small><i class="fa-solid fa-images"></i> Publicaciones</small>
       </div>
-      <div>
-        <strong>{{ usuario.experiencias.length }}</strong><br>
-        <small><i class="fa-solid fa-laptop-code"></i> Cursos/Hackatones</small>
-      </div>
     </div>
+    <br>
 
-    <!-- BOTONES -->
-    <div class="d-flex gap-2 mb-3">
-      <button class="btn btn-primary w-30" >
+    <!-- BOTONES CENTRADOS Y COMPACTOS -->
+    <div class="d-flex justify-content-center gap-2 mb-3">
+      <button class="btn btn-primary" style="min-width: 140px;">
         <i class="fa-solid fa-user-pen"></i> Editar
       </button>
-      <button class="btn btn-outline-secondary w-30">
+      <button class="btn btn-outline-secondary" style="min-width: 140px;">
         <i class="fa-solid fa-gear"></i> Configuración
       </button>
     </div>
 
     <hr>
 
-    <!-- FOTOS + HACKATONES -->
+    <!-- FOTOS -->
     <div class="row g-3">
-      <!-- FOTOS -->
       <div class="col-md-8">
         <h6><i class="fa-solid fa-camera"></i> Fotos</h6>
         <div class="row g-2">
@@ -59,39 +56,39 @@
         </div>
       </div>
 
-      <!-- HACKATONES Y CURSOS -->
-      <div class="col-md-4">
-        <h6><i class="fa-solid fa-laptop-code"></i> Hackatones y Cursos</h6>
-        <ul class="list-group small">
-          <li class="list-group-item" *ngFor="let item of usuario.experiencias">
-            <i class="fa-solid fa-check-circle text-success"></i> {{ item }}
-          </li>
-        </ul>
-      </div>
     </div>
 
   </div>
 </div>
-
 <!-- MODAL DETALLE -->
 <div class="detalle-backdrop" *ngIf="fotoSeleccionada">
   <div class="detalle-panel">
     <div class="detalle-header d-flex justify-content-between align-items-center">
-      <h6><i class="fa-solid fa-image"></i> Detalle de publicación</h6>
+      <h6><i class="fa-solid fa-image"></i> Detalle</h6>
       <button class="btn-close" (click)="cerrarDetalle()"></button>
     </div>
     <div class="detalle-content">
-      <img [src]="fotoSeleccionada.url" class="detalle-img" alt="Publicación">
-      <small class="text-muted d-block mt-2">
-        <i class="fa-regular fa-calendar"></i> {{ fotoSeleccionada.fecha }}
-      </small>
-      <p>{{ fotoSeleccionada.descripcion }}</p>
-      <div class="chips">
-        <span class="chip"><i class="fa-solid fa-heart"></i> {{ fotoSeleccionada.likes }}</span>
-        <span class="chip"><i class="fa-solid fa-comment"></i> {{ fotoSeleccionada.comentarios.length || 0 }}</span>
-        <span class="chip"><i class="fa-solid fa-share"></i> {{ fotoSeleccionada.compartidos }}</span>
+      <img [src]="fotoSeleccionada.url" class="detalle-img">
+      <small class="text-muted"><i class="fa-regular fa-calendar"></i> {{ fotoSeleccionada.fecha }}</small>
+      <p class="my-2">{{ fotoSeleccionada.descripcion }}</p>
+      
+      <!-- ICONOS REDUCIDOS -->
+      <div class="d-flex justify-content-around py-2">
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-heart text-danger"></i>
+          <span class="fw-bold">{{ fotoSeleccionada.likes }}</span> <!-- las letras se vean normal para dispositvos moviles el small -->
+        </span>
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-comment text-primary"></i>
+          <span class="fw-bold">{{ fotoSeleccionada.comentarios.length || 0 }}</span>
+        </span>
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-share text-success"></i>
+          <span class="fw-bold">{{ fotoSeleccionada.compartidos }}</span>
+        </span>
       </div>
-      <div class="comentarios-box mt-2">
+
+      <div class="mt-3">
         <p class="fw-bold small">Comentarios</p>
         <p *ngFor="let c of fotoSeleccionada.comentarios" class="bubble">
           <i class="fa-regular fa-comment-dots text-primary"></i> {{ c }}

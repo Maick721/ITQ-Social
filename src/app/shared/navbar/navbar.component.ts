@@ -12,7 +12,6 @@ import { NotificacionesPanelService } from '../../services/notificaciones-panel.
   styleUrls: ['./navbar.component.css']
 })
 
-
 export class NavbarComponent {
 
   navbarColapsado: boolean = false;
@@ -22,14 +21,8 @@ export class NavbarComponent {
     private notificacionesService: NotificacionesPanelService
   ) {}
 
-  toggleNavbar() {
-    this.navbarColapsado = !this.navbarColapsado;
-  }
-
 abrirModal(): void {
-  console.log('🟢 NAVBAR: Botón clickeado - llamando servicio');
-  this.subirContenidoService.abrirModal();
-  console.log('🟢 NAVBAR: Servicio llamado');
+  this.subirContenidoService.abrirModal()
 }
 
   abrirNotificaciones() {

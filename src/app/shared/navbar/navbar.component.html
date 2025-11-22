@@ -1,137 +1,53 @@
-
-<div class="container-fluid h-100 d-flex">
-  <div
-    class="bg-dark text-light p-3 d-flex flex-column justify-content-between navbar-lateral"
-    [class.colapsado]="navbarColapsado"
-  >
-    <!-- Botón de toggle -->
-    <button
-      class="btn-toggle"
-      (click)="toggleNavbar()"
-      [title]="navbarColapsado ? 'Expandir menú' : 'Contraer menú'"
-    >
-      <i
-        class="bi"
-        [class.bi-chevron-right]="navbarColapsado"
-        [class.bi-chevron-left]="!navbarColapsado"
-      ></i>
-    </button>
-
-    <div>
-      <img
-        src="images/itqsocial.png"
-        alt="logo"
-        class="mb-3 mw-100 mh-100"
-        *ngIf="!navbarColapsado"
-      >
-
-      <ul class="nav flex-column">
-
-        <!-- INICIO -->
-        <li class="nav-item">
-          <a
-            class="nav-link text-light"
-            routerLink="/home"
-            [title]="navbarColapsado ? 'Inicio' : ''"
-          >
-            <i class="bi bi-house-fill" [class.me-2]="!navbarColapsado"></i>
-            <span *ngIf="!navbarColapsado">Inicio</span>
-          </a>
-        </li>
-
-        <br>
-
-        <!-- MENSAJES -->
-        <li class="nav-item">
-          <a
-            class="nav-link text-light"
-            routerLink="/usuario/mensajes"
-            [title]="navbarColapsado ? 'Mensajes' : ''"
-          >
-            <i class="bi bi-chat-dots" [class.me-2]="!navbarColapsado"></i>
-            <span *ngIf="!navbarColapsado">Mensajes</span>
-          </a>
-        </li>
-
-        <br>
-
-        <!-- NOTIFICACIONES -->
-        <li class="nav-item">
-          <a
-            class="nav-link text-light"
-            (click)="abrirNotificaciones()"
-            style="cursor: pointer;"
-            [title]="navbarColapsado ? 'Notificaciones' : ''"
-          >
-            <i class="bi bi-heart" [class.me-2]="!navbarColapsado"></i>
-            <span *ngIf="!navbarColapsado">Notificaciones</span>
-          </a>
-        </li>
-
-        <br>
-
-        <!-- SUBIR CONTENIDO (abre modal) -->
-        <li class="nav-item">
-          <a
-            class="nav-link text-light"
-            (click)="abrirModal()"
-            style="cursor: pointer;"
-            [title]="navbarColapsado ? 'Subir contenido' : ''"
-          >
-            <i class="bi bi-plus-square" [class.me-2]="!navbarColapsado"></i>
-            <span *ngIf="!navbarColapsado">Subir Contenido</span>
-          </a>
-        </li>
-
-        <br>
-
-                <!-- CURSOS -->
-        <li class="nav-item">
-          <a class="nav-link text-light" routerLink="/cursos">
-            <i class="bi bi-book"></i>
-            <span *ngIf="!navbarColapsado">Cursos</span>
-          </a>
-        </li>
-
-        <br>
-
-        <!-- HACKATONES -->
-        <li class="nav-item">
-          <a class="nav-link text-light" routerLink="/hackatones">
-            <i class="bi bi-lightning-charge-fill"></i>
-            <span *ngIf="!navbarColapsado">Hackatones</span>
-          </a>
-        </li>
-
-        <br>
-
-        <!-- PERFIL -->
-        <li class="nav-item">
-          <a
-            class="nav-link text-light"
-            routerLink="/usuario/perfil"
-            [title]="navbarColapsado ? 'Perfil' : ''"
-          >
-            <i class="bi bi-person-circle" [class.me-2]="!navbarColapsado"></i>
-            <span *ngIf="!navbarColapsado">Perfil</span>
-          </a>
-        </li>
-
-        <br>
-
-        <!-- CERRAR SESIÓN -->
-        <li class="nav-item">
-          <a
-            class="nav-link text-light"
-            routerLink="/login"
-            [title]="navbarColapsado ? 'Cerrar Sesión' : ''"
-          >
-            <i class="bi bi-box-arrow-right" [class.me-2]="!navbarColapsado"></i>
-            <span *ngIf="!navbarColapsado">Cerrar Sesión</span>
-          </a>
-        </li>
-
-      </ul>
+<!-- navbar.component.html -->
+<div class="app-container">
+  <nav class="navbar-lateral bg-black text-light p-3 d-flex flex-column">
+    <div class="logo-container text-center">
+      <img src="images/itqsocial.png" alt="logo" class="navbar-logo">
     </div>
-  </div>
+
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link text-light" routerLink="/home" routerLinkActive="active">
+          <i class="bi bi-house-fill"></i>
+          <span class="nav-text">Inicio</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-light" routerLink="/usuario/mensajes" routerLinkActive="active">
+          <i class="bi bi-chat-dots"></i>
+          <span class="nav-text">Mensajes</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-light" (click)="abrirNotificaciones()">
+          <i class="bi bi-heart"></i>
+          <span class="nav-text">Notificaciones</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-light" (click)="abrirModal()">
+          <i class="bi bi-plus-square"></i>
+          <span class="nav-text">Subir Contenido</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-light" routerLink="/usuario/perfil" routerLinkActive="active">
+          <i class="bi bi-person-circle"></i>
+          <span class="nav-text">Perfil</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-light" routerLink="/login">
+          <i class="bi bi-box-arrow-right"></i>
+          <span class="nav-text">Cerrar Sesión</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
 </div>
