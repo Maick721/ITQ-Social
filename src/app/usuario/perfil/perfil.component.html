@@ -8,7 +8,9 @@
     <!-- FOTO + DATOS -->
     <div class="text-center">
 <img [src]="usuario.fotoUrl" alt="Foto de perfil" class="perfil-foto mb-3" />
-      <p class="text-muted">{{ '@' + usuario.usuario }}</p>
+     <h3 class="mb-0">{{ usuario?.nombre }}</h3>
+    <p class="text-muted mb-1"> {{' @'+   usuario?.nombre }} </p> <!--Sirve para al momento que se registre el nombre salga en el perfil -->
+
       <p class="text-muted small">
         <i class="fa-solid fa-graduation-cap"></i> {{ usuario.carrera }} ·
         <i class="fa-solid fa-layer-group"></i> Semestre {{ usuario.semestre }}
@@ -31,10 +33,10 @@
     </div>
     <br>
 
-    <!-- BOTONES CENTRADOS Y COMPACTOS -->
+    <!-- BOTONES CENTRADOS -->
     <div class="d-flex justify-content-center gap-2 mb-3">
-      <button class="btn btn-primary" style="min-width: 140px;">
-        <i class="fa-solid fa-user-pen"></i> Editar
+      <button class="btn btn-primary w-50" routerLink="/editar-perfil">
+        <i class="fa-solid fa-user-pen me-2"></i> Editar perfil
       </button>
       <button class="btn btn-outline-secondary" style="min-width: 140px;">
         <i class="fa-solid fa-gear"></i> Configuración
@@ -49,8 +51,7 @@
         <h6><i class="fa-solid fa-camera"></i> Fotos</h6>
         <div class="row g-2">
           <div class="col-4" *ngFor="let foto of fotos">
-            <img [src]="foto.url" class="img-fluid rounded foto-galeria"
-                 (click)="abrirDetalle(foto)" style="cursor:pointer;">
+            <img [src]="foto.url" class="img-fluid rounded foto-galeria" (click)="abrirDetalle(foto)" style="cursor:pointer;">
           </div>
         </div>
       </div>

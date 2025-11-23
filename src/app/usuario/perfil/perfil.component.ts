@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { SubirContenidoComponent } from '../../usuario/subir-contenido/subir-contenido.component';
 import { SubirContenidoService } from '../../services/subir-contenido.service';
@@ -8,33 +9,33 @@ import { PerfilService } from '../../services/perfil.service';
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, SubirContenidoComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, SubirContenidoComponent],
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent {
 
+  usuario: any = null;
+  fotoSeleccionada: any = null;
+
   constructor(
     public subirContenidoService: SubirContenidoService,
-    private perfilService: PerfilService
+    private perfilService: PerfilService,
+    private router: Router
   ) {}
-
-  usuario: any = null;
 
   ngOnInit() {
     this.usuario = this.perfilService.getPerfil();
 
-    // Si NO existe perfil, lo mando a completar-perfil
+    // Si NO existe perfil -> redirigir usando Router
     if (!this.usuario || !this.usuario.nombre) {
-      window.location.href = '/completar-perfil';
+      this.router.navigate(['/completar-perfil']);
     }
   }
 
   get fotos(): any[] {
     return this.subirContenidoService.getPublicaciones();
   }
-
-  fotoSeleccionada: any = null;
 
   abrirDetalle(foto: any): void {
     this.fotoSeleccionada = foto;
