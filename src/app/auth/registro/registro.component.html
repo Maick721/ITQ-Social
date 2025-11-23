@@ -2,64 +2,52 @@
   <div class="card shadow-lg rounded-4 w-100" style="max-width: 900px;">
     <div class="row g-0">
 
-      <!-- Imagen lateral -->
       <div class="col-md-5 d-none d-md-block">
         <img src="images/login.png" alt="register form" class="img-fluid h-100 rounded-start" style="object-fit: cover;" />
       </div>
 
-      <!-- Formulario -->
       <div class="col-md-7 d-flex align-items-center">
         <div class="card-body p-4 text-black">
-          <form (ngSubmit)="onRegister()" #registroForm="ngForm" action="javascript:void(0);">
+          <form [formGroup]="registroForm" (ngSubmit)="onRegister()">
             <h3 class="fw-bold text-danger mb-3">ITQ Social</h3>
             <h6 class="text-muted mb-3"><i class="fas fa-user-plus me-2 text-danger"></i>Crea tu cuenta</h6>
 
-            <!-- Nombre -->
-            <div class="form-floating mb-2">
-              <input type="text" class="form-control form-control-sm" id="inputNombre"
-                     placeholder="Nombre" name="nombre" [(ngModel)]="usuario.nombre"
-                     onkeypress="return /[a-zA-ZñÑ ]/.test(event.key)" #nombreInput="ngModel" required>
-              <label for="inputNombre">Nombre</label>
+            <!-- Mensaje de error -->
+            <div *ngIf="error" class="alert alert-danger text-center">
+              <strong>{{ error }}</strong>
             </div>
 
-            <!-- Apellido -->
             <div class="form-floating mb-2">
-              <input type="text" class="form-control form-control-sm" id="inputApellido"
-                     placeholder="Apellido" name="apellido" [(ngModel)]="usuario.apellido"
-                     onkeypress="return /[a-zA-ZñÑ ]/.test(event.key)" #apellidoInput="ngModel" required>
-              <label for="inputApellido">Apellido</label>
+              <input type="text" class="form-control form-control-sm"  formControlName="nombre">
+              <label>Nombre</label>
             </div>
 
-            <!-- Email -->
             <div class="form-floating mb-2">
-              <input type="email" class="form-control form-control-sm" id="inputEmail"
-                     placeholder="nombre@ejemplo.com" name="email" [(ngModel)]="usuario.email"
-                     #emailInput="ngModel" required>
-              <label for="inputEmail">Email</label>
+              <input type="text" class="form-control form-control-sm" formControlName="apellido">
+              <label>Apellido</label>
             </div>
 
-            <!-- Contraseña -->
             <div class="form-floating mb-2">
-              <input type="password" class="form-control form-control-sm" id="inputPassword"
-                     placeholder="Contraseña" name="password" [(ngModel)]="usuario.password"
-                     #passwordInput="ngModel" required>
-              <label for="inputPassword">Contraseña</label>
+              <input type="email" class="form-control form-control-sm" formControlName="email">
+              <label>Email institucional</label>
+              <small class="text-muted">Usa tu correo itq.edu.ec</small>
             </div>
 
-            <!-- Confirmar Contraseña -->
+            <div class="form-floating mb-2">
+              <input type="password" class="form-control form-control-sm" 
+                     formControlName="password">
+              <label>Contraseña</label>
+            </div>
+
             <div class="form-floating mb-3">
-              <input type="password" class="form-control form-control-sm" id="inputConfirmPassword"
-                     placeholder="Confirmar Contraseña" name="confirmPassword" [(ngModel)]="usuario.confirmPassword"
-                     #confirmInput="ngModel" required>
-              <label for="inputConfirmPassword">Confirmar Contraseña</label>
+              <input type="password" class="form-control form-control-sm"  formControlName="confirmPassword">
+              <label>Confirmar Contraseña</label>
             </div>
 
-            <!-- Botón -->
-            <button class="btn btn-danger w-100 mb-3" type="submit" [disabled]="registroForm.invalid">
+            <button class="btn btn-danger w-100 mb-3" type="submit">
               Registrarse
             </button>
 
-            <!-- Enlace a login -->
             <p class="text-center text-muted small mb-0">
               ¿Ya tienes cuenta?
               <a (click)="goToLogin()" class="text-danger fw-bold" style="cursor: pointer;">

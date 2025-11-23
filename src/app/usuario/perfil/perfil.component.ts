@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { SubirContenidoComponent } from '../../usuario/subir-contenido/subir-contenido.component';
 import { SubirContenidoService } from '../../services/subir-contenido.service';
+import { PerfilService } from '../../services/perfil.service';
 
 @Component({
   selector: 'app-perfil',
@@ -13,30 +14,26 @@ import { SubirContenidoService } from '../../services/subir-contenido.service';
 })
 export class PerfilComponent {
 
-  constructor(public subirContenidoService: SubirContenidoService) {}
+  constructor(
+    public subirContenidoService: SubirContenidoService,
+    private perfilService: PerfilService
+  ) {}
 
-  usuario = {
-    nombre: 'Ana Torres',
-    usuario: 'anatorres',
-    carrera: 'Diseño Gráfico',
-    semestre: 5,
-    ubicacion: 'Guayaquil, Ecuador',
-    bio: 'Creativa, soñadora y amante del arte digital.',
-    amigos: 230,
-    publicaciones: 67,
-    experiencias: [
-      'Hackatón de Innovación 2024',
-      'Curso de UX/UI Avanzado',
-      'Certificación en Adobe Illustrator',
-      'Taller de Diseño 3D'
-    ]
-  };
+  usuario: any = null;
+
+  ngOnInit() {
+    this.usuario = this.perfilService.getPerfil();
+
+    // Si NO existe perfil, lo mando a completar-perfil
+    if (!this.usuario || !this.usuario.nombre) {
+      window.location.href = '/completar-perfil';
+    }
+  }
 
   get fotos(): any[] {
     return this.subirContenidoService.getPublicaciones();
   }
 
-  // 👇 Cambiar a any
   fotoSeleccionada: any = null;
 
   abrirDetalle(foto: any): void {
@@ -47,9 +44,9 @@ export class PerfilComponent {
     this.fotoSeleccionada = null;
   }
 
-  // Para manejar el evento del hijo
   onPublicada(pub: any): void {
-    this.usuario.publicaciones = this.fotos.length;
-    console.log('Nueva publicación recibida:', pub);
+    if (this.usuario) {
+      this.usuario.publicaciones = this.fotos.length;
+    }
   }
 }

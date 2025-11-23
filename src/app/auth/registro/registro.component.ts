@@ -1,50 +1,92 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-interface Usuario {
-  nombre: string;
-  apellido: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './registro.component.html'
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
+  registroForm = new FormGroup({
+    nombre: new FormControl(''),
+    apellido: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
+    confirmPassword: new FormControl('')
+  });
 
-  usuario: Usuario = {
-    nombre: '',
-    apellido: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  };
+  error: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  onRegister(): void {
-    // 1. Primero validamos las contraseñas
-    if (this.usuario.password !== this.usuario.confirmPassword) {
-      alert('Las contraseñas no coinciden');
+  onRegister() {
+    this.error = '';
+
+    const formData = this.registroForm.value;
+
+    // Validaciones
+    if (!formData.nombre) {
+      this.error = 'Ingresa tu nombre';
       return;
     }
-    
-    // 2. Si todo está bien, registramos
-    console.log('Registrando:', this.usuario);
-    alert('Te hemos enviado un correo de verificación');
-    
-    // 3. Vamos al login
-    this.router.navigate(['/login']);
+
+    if (!formData.apellido) {
+      this.error = 'Ingresa tu apellido';
+      return;
+    }
+
+    if (!formData.email) {
+      this.error = 'Ingresa tu email';
+      return;
+    }
+
+    // Validar email institucional
+    if (!formData.email.includes('@itq.edu.ec')) {
+      this.error = 'Debes usar tu correo institucional (@itq.edu.ec)';
+      return;
+    }
+
+    if (!formData.password) {
+      this.error = 'Ingresa una contraseña';
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      this.error = 'La contraseña debe tener al menos 6 caracteres';
+      return;
+    }
+
+    if (!formData.confirmPassword) {
+      this.error = 'Confirma tu contraseña';
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      this.error = 'Las contraseñas no coinciden';
+      return;
+    }
+
+    // Si todo está bien
+    this.authService.register(formData).subscribe({
+      next: (response) => {
+        alert('Registro exitoso');
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        this.error = 'Error al registrarse. Intenta nuevamente.';
+      }
+    });
   }
 
-  goToLogin(): void {
+  goToLogin() {
     this.router.navigate(['/login']);
   }
 }

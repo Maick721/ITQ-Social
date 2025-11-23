@@ -1,39 +1,60 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-interface UsuarioLogin {
-  email: string;
-  password: string;
-}
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './login.component.html'
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
-  usuario: UsuarioLogin = {
-    email: '',
-    password: ''
-  };
+  error: string | null = null;
 
-  constructor(private router: Router) {}
+  // FORMULARIO REACTIVO
+  loginForm = new FormGroup({
+    email: new FormControl<string>(''),
+    password: new FormControl<string>('')
+  });
 
-  onLogin(): void {
-    // Solo se ejecutará si el formulario es válido
-    console.log('Login exitoso:', this.usuario);
-    this.router.navigate(['/home']);
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  get email() { return this.loginForm.get('email')!; }
+  get password() { return this.loginForm.get('password')!; }
+
+  // LOGIN
+  onLogin() {
+    if (this.loginForm.invalid) {
+      this.error = 'Completa correctamente los campos.';
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    const formData = this.loginForm.value as { email: string; password: string };
+
+    this.authService.login(formData).subscribe({
+      next: () => {
+        // despues de iniciar sesion te lleva al componente completar perfil
+        this.router.navigate(['completar-perfil']);
+      },
+      error: () => {
+        this.error = 'Correo o contraseña incorrectos';
+      }
+    });
   }
 
-  onRegister(): void {
-    this.router.navigate(['/registro']);
-  }
-
-  onForgotPassword(): void {
+  onForgotPassword() {
     this.router.navigate(['/forgot-password']);
+  }
+
+  goToRegister() {
+    this.router.navigate(['/registro']);
   }
 }

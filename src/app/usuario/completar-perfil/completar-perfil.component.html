@@ -1,0 +1,60 @@
+<div class="container mt-4">
+
+  <div class="card p-4 shadow-sm">
+
+    <h3 class="mb-3 text-center">
+      <i class="fa-solid fa-user-pen me-2"></i>
+      Completar Perfil
+    </h3>
+
+    <form [formGroup]="perfilForm" (ngSubmit)="guardarPerfil()">
+
+      <!-- Foto -->
+      <label class="fw-bold">Foto de perfil</label>
+      <input type="file" accept="image/*" class="form-control mb-3"
+             (change)="onFotoSeleccionada($event)">
+
+      <div *ngIf="fotoPreview" class="text-center mb-3">
+        <img [src]="fotoPreview" class="rounded-circle" width="130" height="130">
+      </div>
+
+      <!-- Nombre -->
+      <label class="fw-bold">Nombre completo</label>
+      <input type="text" class="form-control mb-3"
+             formControlName="nombre"
+             placeholder="Tu nombre completo">
+
+      <!-- Carrera -->
+      <label class="fw-bold">Carrera</label>
+      <select class="form-select mb-3" formControlName="carrera">
+        <option disabled selected>Seleccione su carrera</option>
+        <option>Desarrollo de Software</option>
+        <option>Diseño Gráfico</option>
+        <option>Redes y Telecomunicaciones</option>
+        <option>Administración</option>
+        <option>Contabilidad</option>
+      </select>
+
+      <!-- Semestre -->
+      <label class="fw-bold">Semestre</label>
+      <select class="form-select mb-3" formControlName="semestre">
+        <option disabled selected>Seleccione su semestre</option>
+        <option *ngFor="let s of [1,2,3,4,5,6]">{{ s }}</option>
+      </select>
+
+      <!-- Bio -->
+      <label class="fw-bold">Biografiao</label>
+      <textarea rows="3" class="form-control mb-3"
+                formControlName="bio"
+                placeholder="Describe algo sobre ti..."></textarea>
+
+      <button class="btn btn-danger w-100" type="submit"
+              [disabled]="perfilForm.invalid">
+        Guardar perfil
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

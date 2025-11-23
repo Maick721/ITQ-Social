@@ -1,43 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { SubirContenidoComponent } from '../../usuario/subir-contenido/subir-contenido.component';
-
-
 
 @Component({
   selector: 'app-mensajes',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent, SubirContenidoComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './mensajes.component.html',
   styleUrls: ['./mensajes.component.css']
 })
 export class MensajesComponent {
 
-  chatSeleccionado: any = null;   // ✔ AQUÍ VA
-  mensajeTexto: string = '';
+  @ViewChild('mensajeInput') mensajeInput!: ElementRef<HTMLInputElement>;
+
+  chatSeleccionado: any = null;
   imagenError: string = '';
   imagenNombre: string = '';
+  imagenPrevisualizacion: string = '';
+  mostrarModalImagen: boolean = false;
+  imagenParaEnviar: any = null;
 
   chats = [
     {
       nombre: "Ana Torres",
       foto: "assets/usuarios/user1.jpg",
-      ultimoMensaje: "¡Hola! ¿Cómo va tu proyecto?",
+      ultimoMensaje: "Hola! Como va tu proyecto?",
       mensajes: [
-        { de: "Ana", texto: "¡Hola! ¿Cómo va tu proyecto?" },
-        { de: "Yo", texto: "Todo bien, gracias :)" },
-        { de: "Ana", texto: "Qué bueno saberlo 👌" }
+        { de: "Ana", texto: "Hola! Como va tu proyecto?" },
+        { de: "Yo", texto: "Todo bien, gracias" },
+        { de: "Ana", texto: "Que bueno saberlo" }
       ]
     },
     {
       nombre: "Kevin Morales",
-      foto: "assets/usuarios/user2.jpg",
-      ultimoMensaje: "Te mandé los archivos 📎",
+      foto: "assets/usuarios/user2.jpg", 
+      ultimoMensaje: "Te mande los archivos",
       mensajes: [
-        { de: "Kevin", texto: "Te mandé los archivos 📎" },
-        { de: "Yo", texto: "¡Genial, gracias bro!" }
+        { de: "Kevin", texto: "Te mande los archivos" },
+        { de: "Yo", texto: "Genial, gracias bro" }
       ]
     }
   ];
@@ -51,33 +52,74 @@ export class MensajesComponent {
   }
 
   enviarMensaje() {
-    const texto = this.mensajeTexto.trim();
-    if (!texto) return;
+    const texto = this.mensajeInput.nativeElement.value.trim();
+    if (!texto || !this.chatSeleccionado) return;
 
     this.chatSeleccionado.mensajes.push({ de: 'Yo', texto });
-    this.mensajeTexto = '';
+    this.mensajeInput.nativeElement.value = '';
+    this.chatSeleccionado.ultimoMensaje = texto;
   }
 
-  onImagenSeleccionada(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files?.length) return;
+  seleccionarImagen() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    
+    input.onchange = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (!file || !this.chatSeleccionado) return;
 
-    const file = input.files[0];
-    const maxSize = 5 * 1024 * 1024 * 1024; // 5GB
+      const maxSize = 5 * 1024 * 1024; // 5MB
 
-    if (file.size > maxSize) {
-      this.imagenError = 'La imagen no puede pesar más de 5 GB.';
-      return;
-    }
+      if (file.size > maxSize) {
+        this.imagenError = 'La imagen no puede pesar más de 5 MB.';
+        return;
+      }
 
-    this.imagenError = '';
-    this.imagenNombre = file.name;
+      this.imagenError = '';
+      this.imagenNombre = file.name;
 
+      // Previsualizar imagen en modal
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagenPrevisualizacion = e.target.result;
+        this.imagenParaEnviar = {
+          url: e.target.result,
+          nombre: file.name,
+          file: file
+        };
+        this.mostrarModalImagen = true; // ABRIR MODAL AQUÍ
+      };
+      
+      reader.readAsDataURL(file);
+    };
+
+    input.click();
+  }
+
+  enviarImagen() {
+    if (!this.imagenParaEnviar || !this.chatSeleccionado) return;
+
+    // Agregar mensaje con imagen
     this.chatSeleccionado.mensajes.push({
       de: 'Yo',
-      texto: `📎 Imagen enviada: ${file.name}`
+      texto: 'Imagen enviada:',
+      imagen: this.imagenParaEnviar.url,
+      nombreArchivo: this.imagenParaEnviar.nombre
     });
 
-    input.value = '';
+    // Actualizar último mensaje
+    this.chatSeleccionado.ultimoMensaje = 'Imagen: ' + this.imagenParaEnviar.nombre;
+
+    // Cerrar modal y limpiar
+    this.cancelarImagen();
+  }
+
+  cancelarImagen() {
+    this.mostrarModalImagen = false;
+    this.imagenPrevisualizacion = '';
+    this.imagenParaEnviar = null;
+    this.imagenNombre = '';
   }
 }
