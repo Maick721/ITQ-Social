@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
 //Importamos el CommonModule para usar directivas aprendidas de Angular
 
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-paneladmin',
   standalone: true, //Indicamos que es un componente independiente activando standalone
-  imports: [NavbarComponent, CommonModule],
+  imports: [CommonModule],
   templateUrl: './paneladmin.component.html',
   styleUrl: './paneladmin.component.css'
 })

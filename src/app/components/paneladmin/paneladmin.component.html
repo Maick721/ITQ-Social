@@ -1,10 +1,9 @@
-<app-navbar></app-navbar>
+<div class="admin-container">
+  <h1>Panel de Administración</h1>
 
-<h1>Panel de Administración</h1>
-
-<!-- SECCIÓN DE ESTADÍSTICAS -->
-<div>
-  <h2>Estadísticas</h2>
+  <!-- SECCIÓN DE ESTADÍSTICAS -->
+  <div>
+    <h2>Estadísticas</h2>
 
   <!-- *ngFor para recorrer las tarjetas de estadística -->
   <div *ngFor="let item of stats">
@@ -15,10 +14,7 @@
 </div>
 
 
-
-<!-- ============================
-     ADMINISTRAR PUBLICACIONES
-     ============================ -->
+<!--Pra administrar publicaciones-->
 <h2>Administrar Publicaciones</h2>
 
 <!-- Solo se muestra la tabla si hay publicaciones (uso de *ngIf) -->
@@ -58,9 +54,7 @@
 
 
 
-<!-- ============================
-     GESTIONAR USUARIOS
-     ============================ -->
+<!--Para gestionar usuarios-->
 <h2>Gestionar Usuarios</h2>
 
 <!-- *ngIf para verificar si hay usuarios -->
@@ -88,7 +82,8 @@
   </table>
 </div>
 
-<!-- Mensaje si no hay usuarios -->
-<ng-template #noUsuarios>
-  <p>No hay usuarios registrados.</p>
-</ng-template>
+  <!-- Mensaje si no hay usuarios -->
+  <ng-template #noUsuarios>
+    <p>No hay usuarios registrados.</p>
+  </ng-template>
+</div>
