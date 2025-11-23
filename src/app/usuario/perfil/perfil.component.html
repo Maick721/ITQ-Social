@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+<app-subir-contenido (publicada)="onPublicada($event)"></app-subir-contenido>
+<div class="container mt-4 perfil-container">
+  <div class="row justify-content-center">
+    <div class="col-12" style="max-width: 900px;"> <!-- Se adapte la pantalla -->
+      <div class="card p-4">
+
+    <!-- FOTO + DATOS -->
+    <div class="text-center">
+<img [src]="usuario.fotoUrl" alt="Foto de perfil" class="perfil-foto mb-3" />
+      <p class="text-muted">{{ '@' + usuario.usuario }}</p>
+      <p class="text-muted small">
+        <i class="fa-solid fa-graduation-cap"></i> {{ usuario.carrera }} ·
+        <i class="fa-solid fa-layer-group"></i> Semestre {{ usuario.semestre }}
+      </p>
+    </div>
+
+    <!-- BIO -->
+    <p class="text-muted text-center mt-2">{{ usuario.bio }}</p>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="d-flex justify-content-around text-center my-3">
+      <div>
+        <strong>{{ usuario.amigos }}</strong><br>
+        <small><i class="fa-solid fa-user-group"></i> Amigos</small>
+      </div>
+      <div>
+        <strong>{{ usuario.publicaciones }}</strong><br> <!--que se vea con negrilla-->
+        <small><i class="fa-solid fa-images"></i> Publicaciones</small>
+      </div>
+    </div>
+    <br>
+
+    <!-- BOTONES CENTRADOS Y COMPACTOS -->
+    <div class="d-flex justify-content-center gap-2 mb-3">
+      <button class="btn btn-primary" style="min-width: 140px;">
+        <i class="fa-solid fa-user-pen"></i> Editar
+      </button>
+      <button class="btn btn-outline-secondary" style="min-width: 140px;">
+        <i class="fa-solid fa-gear"></i> Configuración
+      </button>
+    </div>
+
+    <hr>
+
+    <!-- FOTOS -->
+    <div class="row g-3">
+      <div class="col-md-8">
+        <h6><i class="fa-solid fa-camera"></i> Fotos</h6>
+        <div class="row g-2">
+          <div class="col-4" *ngFor="let foto of fotos">
+            <img [src]="foto.url" class="img-fluid rounded foto-galeria"
+                 (click)="abrirDetalle(foto)" style="cursor:pointer;">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- MODAL DETALLE -->
+<div class="detalle-backdrop" *ngIf="fotoSeleccionada">
+  <div class="detalle-panel">
+    <div class="detalle-header d-flex justify-content-between align-items-center">
+      <h6><i class="fa-solid fa-image"></i> Publicación </h6>
+      <button class="btn-close" (click)="cerrarDetalle()"></button>
+    </div>
+    <div class="detalle-content">
+      <img [src]="fotoSeleccionada.url" class="detalle-img">
+      <small class="text-muted"><i class="fa-regular fa-calendar"></i> {{ fotoSeleccionada.fecha }}</small>
+      <p class="my-2">{{ fotoSeleccionada.descripcion }}</p>
+      
+      <!-- ICONOS REDUCIDOS -->
+      <div class="d-flex justify-content-around py-2">
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-heart text-danger"></i>
+          <span class="fw-bold">{{ fotoSeleccionada.likes }}</span> <!-- las letras se vean normal para dispositvos moviles el small -->
+        </span>
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-comment text-primary"></i>
+          <!-- Muestra la canticada de comentarios -->
+          <span class="fw-bold">{{ fotoSeleccionada.comentarios.length || 0 }}</span>
+        </span>
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-share text-success"></i>
+          <span class="fw-bold">{{ fotoSeleccionada.compartidos }}</span>
+        </span>
+      </div>
+
+      <div class="mt-3">
+        <p class="fw-bold small">Comentarios</p>
+        <p *ngFor="let c of fotoSeleccionada.comentarios" class="bubble">
+          <i class="fa-regular fa-comment-dots text-primary"></i> {{ c }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

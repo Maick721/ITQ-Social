@@ -1,0 +1,128 @@
+/* Fondo oscuro */
+.notificaciones-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 998;
+}
+
+/* Panel derecho */
+.notificaciones-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  z-index: 999;
+  padding: 15px;
+  overflow-y: auto;
+  transition: right .3s;
+}
+
+.notificaciones-panel.open {
+  right: 0;
+}
+
+/* Header */
+.notificaciones-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.notificaciones-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Filtros */
+.filtros {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.filtro-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 12px;
+  background: #f1f1f1;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filtro-btn.activo {
+  background: #111;
+  color: #fff;
+}
+
+.badge {
+  background: #ccc;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+/* Ítems */
+.notificaciones-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notificacion-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.notificacion-item.no-leida {
+  background: #e9f3ff;
+}
+
+.notificacion-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notificacion-contenido {
+  flex: 1;
+}
+
+.notificacion-tiempo {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Imagen miniatura */
+.notificacion-imagen {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Botón eliminar */
+.btn-eliminar {
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  color: #777;
+}
+
+/* Estado vacío */
+.sin-notificaciones {
+  text-align: center;
+  padding: 40px 10px;
+  color: #666;
+}

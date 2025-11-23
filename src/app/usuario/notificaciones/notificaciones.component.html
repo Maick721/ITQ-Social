@@ -1,0 +1,56 @@
+<div class="notificaciones-overlay" *ngIf="isOpen" (click)="cerrarPanel()"></div>
+
+<div class="notificaciones-panel" [class.open]="isOpen">
+  <!-- Botón flecha para cerrar -->
+  <button class="btn-flecha-cerrar" (click)="cerrarPanel()" title="Cerrar">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <!-- Header -->
+  <div class="notificaciones-header">
+    <h2>Notificaiones</h2>
+    <div class="header-actions">
+      <button class="btn-cerrar" (click)="cerrarPanel()" title="Cerrar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <button class="filtro-btn" [class.activo]="filtroActual === 'todas'" (click)="cambiarFiltro('todas')">
+      <i class="fa-solid fa-bell"></i> Todas 
+      <span class="badge">{{ notificaciones.length }}</span>
+    </button>
+    <button class="filtro-btn" [class.activo]="filtroActual === 'noLeidas'" (click)="cambiarFiltro('noLeidas')">
+      <i class="fa-regular fa-envelope"></i> No leídas 
+      <span class="badge" *ngIf="notificacionesNoLeidas > 0">{{ notificacionesNoLeidas }}</span>
+    </button>
+  </div>
+
+  <!-- Lista de notificaciones -->
+  <div class="notificaciones-lista">
+    <div *ngFor="let n of notificacionesFiltradas" class="notificacion-item" [class.no-leida]="!n.leida" (click)="marcarComoLeida(n)">
+      <div class="notificacion-avatar">
+        <img [src]="n.usuarioEmisor.avatar" [alt]="n.usuarioEmisor.nombre">
+        <span class="icono-tipo"><i [class]="obtenerIcono(n.tipo)"></i></span>
+      </div>
+      <div class="notificacion-contenido">
+        <span class="usuario-nombre">{{ n.usuarioEmisor.nombre }}</span>
+        <span class="mensaje">{{ n.mensaje }}</span>
+        <span class="notificacion-tiempo">{{ obtenerTiempoTranscurrido(n.fecha) }}</span>
+      </div>
+      <img *ngIf="n.imagen" [src]="n.imagen" class="notificacion-imagen" alt="Imagen">
+      <button class="btn-eliminar" (click)="eliminarNotificacion($event, n.id)" title="Eliminar">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+      <div class="indicador-no-leida" *ngIf="!n.leida"></div>
+    </div>
+
+    <!-- Mensaje cuando no hay notificaciones -->
+    <div class="sin-notificaciones" *ngIf="notificacionesFiltradas.length === 0">
+      <i class="fa-regular fa-bell-slash fa-2x"></i>
+      <p>{{ filtroActual === 'noLeidas' ? 'No tienes notificaciones sin leer' : 'No tienes notificaciones' }}</p>
+    </div>
+  </div>
+</div>

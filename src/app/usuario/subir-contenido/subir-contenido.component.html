@@ -1,0 +1,40 @@
+<!-- Modal -->
+<div class="modal" *ngIf="modalAbierto">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-upload me-2"></i>Subir contenido
+        </h5>
+        <button type="button" class="btn-close btn-close-white" 
+                (click)="cerrarModal()"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="mb-3">
+          <label class="form-label">Imagen</label>
+          <input type="file" accept="image/*" class="form-control" 
+                 (input)="onFileChange($event)">
+        </div>
+
+        <div class="mb-3" *ngIf="nueva.url">
+          <img [src]="nueva.url" class="img-fluid rounded border" alt="Vista previa">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Descripción</label>
+          <input type="text" class="form-control" 
+                 placeholder="Escribe una descripción..."
+                 (input)="onDescripcionChange($event)">
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" (click)="publicar()" 
+                [disabled]="!nueva.url || !nueva.descripcion">
+          <i class="fa-solid fa-paper-plane me-2"></i>Publicar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="modal-backdrop" *ngIf="modalAbierto" (click)="cerrarModal()"></div>

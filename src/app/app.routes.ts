@@ -7,9 +7,9 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { PaneladminComponent } from './components/paneladmin/paneladmin.component';
 import { CommonModule } from '@angular/common';
-import { AdminComponent } from './components/admin/admin.component';
 
 export const routes: Routes = [
+  // ===== RUTAS DE AUTENTICACIÓN =====
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent }, 
   { path: 'forgot-password', component: ForgotPasswordComponent }, 
@@ -18,7 +18,6 @@ export const routes: Routes = [
   {path: 'navbar', component: NavbarComponent},
   {path: 'paneladmin', component: PaneladminComponent},
   {path: 'common', component: CommonModule},
-  {path: 'admin', component: AdminComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];
