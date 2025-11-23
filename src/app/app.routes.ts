@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { MuroComponent } from './components/muro/muro.component';
-import { RegistroComponent } from './components/registro/registro.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { PaneladminComponent } from './components/paneladmin/paneladmin.component';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './auth/login/login.component';
+import { RegistroComponent } from './auth/registro/registro.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { MuroComponent } from './usuario/muro/muro.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { PaneladminComponent } from './administrador/paneladmin/paneladmin.component';
 
 export const routes: Routes = [
   // ===== RUTAS DE AUTENTICACIÓN =====
