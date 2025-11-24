@@ -25,7 +25,7 @@ abrirModal(): void {
   this.subirContenidoService.abrirModal()
 }
 
-  abrirNotificaciones() {
+abrirNotificaciones() {
     this.notificacionesService.abrir();
   }
 }

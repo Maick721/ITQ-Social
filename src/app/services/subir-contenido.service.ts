@@ -34,9 +34,7 @@ export class SubirContenidoService {
 
   // Método para abrir modal
 abrirModal(): void {
-  console.log('🔵 SERVICIO: abrirModal() ejecutado');
   this.modalAbierto.next(true);
-  console.log('🔵 SERVICIO: BehaviorSubject actualizado a true');
 }
   cerrarModal(): void {
     this.modalAbierto.next(false);

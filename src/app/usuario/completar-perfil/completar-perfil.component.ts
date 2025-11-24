@@ -16,10 +16,10 @@ export class CompletarPerfilComponent {
   fotoPreview: string | null = null;
 
   perfilForm = new FormGroup({
-    nombre:   new FormControl<string>('', Validators.required),
-    carrera:  new FormControl<string>('', Validators.required),
-    semestre: new FormControl<number | null>(null, Validators.required),
-    bio:      new FormControl<string>('', Validators.required),
+    nombre:   new FormControl<string>(''),
+    carrera:  new FormControl<string>(''),
+    semestre: new FormControl<number | null>(null),
+    bio:      new FormControl<string>(''),
     fotoUrl:  new FormControl<string | null>(null)
   });
 

@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './congigurar-perfil.component.html',
   styleUrl: './congigurar-perfil.component.css'
 })
-export class CongigurarPerfilComponent {
+export class ConfigurarPerfilComponent {
 
 }

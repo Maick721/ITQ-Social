@@ -76,7 +76,7 @@ export class NotificacionesService {
         imagen: 'https://picsum.photos/200/200?random=1',
         enlace: '/muro'
       },
-      // ... el resto de tus notificaciones mock (sin cambios)
+
     ];
   }
 }

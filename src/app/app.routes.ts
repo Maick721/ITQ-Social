@@ -14,7 +14,7 @@ import { PerfilComponent } from './usuario/perfil/perfil.component';
 import { SubirContenidoComponent } from './usuario/subir-contenido/subir-contenido.component';
 import { CompletarPerfilComponent } from './usuario/completar-perfil/completar-perfil.component';
 import { EditarPerfilComponent } from './usuario/editar-perfil/editar-perfil.component';
-import { CongigurarPerfilComponent } from './usuario/congigurar-perfil/congigurar-perfil.component';
+import { ConfigurarPerfilComponent } from './usuario/configurar-perfil/congigurar-perfil.component';
 import { AuthGuard } from './guards/auth.guard'; // Para proteger todas nuestras rutas
 
 export const routes: Routes = [
@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: 'subir-contenido', component: SubirContenidoComponent, canActivate: [AuthGuard] },
   { path: 'completar-perfil', component: CompletarPerfilComponent, canActivate: [AuthGuard] },
   { path: 'editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard] },
-  { path: 'configurar-perfil', component: CongigurarPerfilComponent, canActivate: [AuthGuard] },
+  { path: 'configurar-perfil', component: ConfigurarPerfilComponent, canActivate: [AuthGuard] },
 
   // ===== RUTAS DE ADMINISTRADOR (PROTEGIDAS) =====
   { path: 'paneladmin', component: PaneladminComponent, canActivate: [AuthGuard] },

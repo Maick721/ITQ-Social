@@ -20,7 +20,7 @@ export class EditarPerfilComponent {
   perfilForm = new FormGroup({
     nombre:   new FormControl(''),
     carrera:  new FormControl(''),
-    semestre: new FormControl(1),
+    semestre: new FormControl(0),
     bio:      new FormControl('')
   });
 

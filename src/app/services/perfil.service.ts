@@ -13,22 +13,22 @@ export interface PerfilUsuario {
 })
 export class PerfilService {
 
-  private perfilKey = 'perfilUsuario'; // almacenamiento local
+  private perfilKey = 'perfilUsuario'; 
 
   constructor() {}
 
-  // ✔ Guardar perfil
+  //  Guardar perfil
   guardarPerfil(data: PerfilUsuario) {
     localStorage.setItem(this.perfilKey, JSON.stringify(data));
   }
 
-  // ✔ Obtener perfil
+  //  Obtener perfil
   getPerfil(): PerfilUsuario | null {
     const data = localStorage.getItem(this.perfilKey);
     return data ? JSON.parse(data) : null;
   }
 
-  // ✔ Borrar perfil (opcional)
+  //  Borrar perfil (opcional)
   borrarPerfil() {
     localStorage.removeItem(this.perfilKey);
   }
