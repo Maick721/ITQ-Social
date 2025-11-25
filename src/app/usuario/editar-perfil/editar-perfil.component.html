@@ -9,7 +9,6 @@
 
     <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
 
-      <!-- FOTO ACTUAL -->
       <div class="text-center mb-3">
         <img *ngIf="fotoPreview; else sinFoto"
              [src]="fotoPreview"
@@ -23,16 +22,13 @@
                width="130" height="130">
         </ng-template>
 
-        <!-- CAMPO FOTO SIN (change) -->
         <input type="file"
                class="form-control w-75 mx-auto"
                accept="image/*"
-               formControlName="fotoUrl">
-      </div>
+               (change)="onFotoSeleccionada($event)"> </div>
 
       <hr>
 
-      <!-- NOMBRE -->
       <div class="mb-3">
         <label class="form-label">
           <i class="fa-solid fa-user me-1"></i>Nombre
@@ -40,15 +36,16 @@
         <input type="text" class="form-control" formControlName="nombre">
       </div>
 
-      <!-- CARRERA -->
-      <div class="mb-3">
-        <label class="form-label">
-          <i class="fa-solid fa-graduation-cap me-1"></i>Carrera
-        </label>
-        <input type="text" class="form-control" formControlName="carrera">
-      </div>
+      <label class="fw-bold">Carrera</label>
+      <select class="form-select mb-3" formControlName="carrera">
+        <option disabled selected>Seleccione su carrera</option>
+        <option>Desarrollo de Software</option>
+        <option>Diseño Gráfico</option>
+        <option>Redes y Telecomunicaciones</option>
+        <option>Administración</option>
+        <option>Contabilidad</option>
+      </select>
 
-      <!-- SEMESTRE -->
       <div class="mb-3">
         <label class="form-label">
           <i class="fa-solid fa-layer-group me-1"></i>Semestre
@@ -62,7 +59,6 @@
         </select>
       </div>
 
-      <!-- BIO -->
       <div class="mb-3">
         <label class="form-label">
           <i class="fa-solid fa-comment me-1"></i>Biografía
@@ -75,7 +71,6 @@
 
       <hr>
 
-      <!-- BOTONES -->
       <div class="d-flex gap-3">
         <button class="btn btn-dark w-50" type="submit">
           <i class="fa-solid fa-save me-2"></i>Guardar

@@ -6,6 +6,8 @@ export interface PerfilUsuario {
   semestre: number;
   bio: string;
   fotoUrl: string | null;
+  publicaciones?: number;
+  amigos?: number;
 }
 
 @Injectable({
@@ -17,18 +19,15 @@ export class PerfilService {
 
   constructor() {}
 
-  //  Guardar perfil
   guardarPerfil(data: PerfilUsuario) {
     localStorage.setItem(this.perfilKey, JSON.stringify(data));
   }
 
-  //  Obtener perfil
   getPerfil(): PerfilUsuario | null {
     const data = localStorage.getItem(this.perfilKey);
     return data ? JSON.parse(data) : null;
   }
 
-  //  Borrar perfil (opcional)
   borrarPerfil() {
     localStorage.removeItem(this.perfilKey);
   }

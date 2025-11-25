@@ -28,11 +28,8 @@ export class SubirContenidoComponent implements OnDestroy {
   @Output() publicada = new EventEmitter<any>();
 
   constructor(private subirContenidoService: SubirContenidoService) {
-    console.log('🔵 SUBIR-CONTENIDO: Constructor ejecutado');
-    
     this.subscription = this.subirContenidoService.modalAbierto$.subscribe(
       abierto => {
-        console.log('🔄 SUBSCRIPCIÓN: Valor recibido =', abierto);
         this.modalAbierto = abierto;
       }
     );
