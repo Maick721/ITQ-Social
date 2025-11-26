@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+// 🚫 IMPORTANTE: Se elimina la importación de Validators
+import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms'; 
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -14,8 +15,11 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
 
   error: string | null = null;
+  // Mensajes de error individuales para mostrar en el HTML
+  emailError: string | null = null;
+  passwordError: string | null = null; 
 
-  // FORMULARIO REACTIVO
+  // FORMULARIO REACTIVO (sin Validators)
   loginForm = new FormGroup({
     email: new FormControl<string>(''),
     password: new FormControl<string>('')
@@ -26,26 +30,69 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  get email() { return this.loginForm.get('email')!; }
-  get password() { return this.loginForm.get('password')!; }
+  // Getters para acceder fácilmente a los controles
+  get email() { return this.loginForm.get('email') as any; }
+  get password() { return this.loginForm.get('password') as any; }
+
+  // Función de validación manual (devuelve true si es válido)
+  private validateFormManually(): boolean {
+    this.emailError = null;
+    this.passwordError = null;
+    let isValid = true;
+    
+    const emailValue = this.email.value;
+    const passwordValue = this.password.value;
+
+    // 1. Validar Email
+    if (!emailValue || emailValue.trim() === '') {
+      this.emailError = 'El correo electrónico es obligatorio.';
+      this.email.markAsTouched();
+      isValid = false;
+    } else {
+      // Validar formato básico de email (algo@algo.algo)
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailValue)) {
+        this.emailError = 'Ingresa un formato de email válido.';
+        this.email.markAsTouched();
+        isValid = false;
+      }
+    }
+
+    // 2. Validar Contraseña
+    if (!passwordValue || passwordValue.trim() === '') {
+      this.passwordError = 'La contraseña es obligatoria.';
+      this.password.markAsTouched();
+      isValid = false;
+    }
+
+    // Si hay errores específicos, borramos el error general
+    if (!isValid) {
+        this.error = 'Por favor, completa correctamente los campos.';
+    }
+
+    return isValid;
+  }
 
   // LOGIN
   onLogin() {
-    if (this.loginForm.invalid) {
-      this.error = 'Completa correctamente los campos.';
-      this.loginForm.markAllAsTouched();
-      return;
+    this.error = null;
+    
+    // Llamamos a la validación manual
+    if (!this.validateFormManually()) {
+      return; // Detenemos si no es válido
     }
 
+    // El formulario es válido, procedemos con el servicio
     const formData = this.loginForm.value as { email: string; password: string };
 
     this.authService.login(formData).subscribe({
       next: () => {
-        // despues de iniciar sesion te lleva al componente completar perfil
-        this.router.navigate(['completar-perfil']);
+        // Redirige al perfil
+        this.router.navigate(['/completar-perfil']);
       },
       error: () => {
-        this.error = 'Correo o contraseña incorrectos';
+        // Error del backend (credenciales incorrectas)
+        this.error = 'Correo o contraseña incorrectos.';
       }
     });
   }

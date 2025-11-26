@@ -49,7 +49,7 @@ export class RegistroComponent {
     }
 
     // Validar email institucional
-    if (!formData.email.includes('@itq.edu.ec')) {
+    if (!formData.email.includes('@gmail.com')) {
       this.error = 'Debes usar tu correo institucional (@itq.edu.ec)';
       return;
     }
